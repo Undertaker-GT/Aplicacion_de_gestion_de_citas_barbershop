@@ -1,0 +1,129 @@
+/* Reusa variables de barberoD.css */
+
+.header-card{
+  border:1px solid var(--bk-line);
+  border-radius: calc(var(--radius) + 2px);
+  background: linear-gradient(180deg, rgba(255,255,255,.02), rgba(255,255,255,0));
+  box-shadow: var(--shadow);
+}
+/* Fix clics del borde */
+.pole-border{ position:relative; z-index:0 }
+.pole-border::before{ pointer-events:none; z-index:0 }
+.pole-border>*{ position:relative; z-index:1 }
+
+/* Filtros */
+.filter-estado .btn{
+  border-color:#ffffff33;
+}
+.filter-estado .btn.active{
+  background:#ffffff1a;
+  border-color:#ffffff66;
+  color:#fff;
+}
+
+/* Tarjeta por día */
+.day-card{
+  overflow:hidden;
+}
+.day-head{
+  display:flex; align-items:center; gap:12px;
+  padding:12px 16px; border-bottom:1px dashed var(--bk-line);
+  background: linear-gradient(180deg, rgba(255,255,255,.02), rgba(255,255,255,0));
+}
+.date-badge{
+  width:50px; height:58px; border-radius:12px; text-align:center;
+  display:flex; flex-direction:column; justify-content:center;
+  background:#0e0f12; border:1px solid var(--bk-line);
+  box-shadow: inset 0 0 0 1px rgba(255,255,255,.02);
+}
+.date-badge .dom{ font-size:1.3rem; font-weight:700; color:var(--bk-ink) }
+.date-badge .month{ font-size:.8rem; color:#c9c5bb }
+
+/* Timeline (igual que dashboard, con pequeños ajustes) */
+.timeline{ position:relative; padding-left:1rem }
+.timeline::before{
+  content:""; position:absolute; left:.65rem; top:.2rem; bottom:.2rem; width:2px;
+  background:linear-gradient(var(--bk-accent), var(--bk-blue)); opacity:.7;
+}
+.timeline-item{ position:relative; display:flex; gap:12px; margin:0 0 18px }
+.timeline-dot{
+  position:relative; top:.4rem; left:-2px; width:12px; height:12px; border-radius:50%;
+  background: linear-gradient(135deg, var(--bk-accent), var(--bk-blue));
+  box-shadow:0 0 0 4px rgba(255,255,255,.02);
+}
+.timeline-content{
+  flex:1; background: rgba(0,0,0,.18);
+  border:1px solid var(--bk-line);
+  border-radius: 14px; padding:12px 14px;
+}
+.tc-top{
+  display:flex; align-items:center; justify-content:space-between; margin-bottom:6px;
+}
+.timechip{
+  font-weight:600; background:rgba(255,255,255,.06);
+  border:1px solid var(--bk-line); padding:.25rem .55rem; border-radius:999px;
+}
+.tc-main .services{ color:#cecac1 }
+.tc-actions{ margin-top:.6rem; display:flex; gap:.5rem; flex-wrap:wrap }
+.btn-outline-light{ border-color:#cfcfcf33; color:#f3f3f3 }
+.btn-outline-light:hover{ background:#ffffff10 }
+
+/* Estados */
+.estado-badge{
+  font-size:.85rem; padding:.25rem .55rem; border-radius:999px; border:1px solid transparent;
+}
+.estado-pendiente{ background:#3a2a18; border-color:#6f4c2b; color:#f5d8b4 }
+.estado-confirmada{ background:#18351b; border-color:#2e7d32; color:#bde5c2 }
+.estado-cancelada{ background:#3a1a1a; border-color:#7d2e2e; color:#f2c2c2 }
+
+/* Modales oscuros */
+.bk-modal{
+  background:#17181b; color:var(--bk-ink);
+  border:1px solid var(--bk-line); border-radius:var(--radius); overflow:hidden;
+}
+.bk-modal .modal-header{
+  background: linear-gradient(135deg, rgba(193,154,107,.18), rgba(27,78,161,.14));
+  border-bottom:1px solid var(--bk-line);
+}
+.bk-modal .modal-footer{ border-top:1px solid var(--bk-line) }
+
+/* Empty state */
+.empty-state{ color:#c9c5bb }
+
+/* Input búsqueda */
+.bk-input{
+  background:#0f0f10; color:var(--bk-ink); border:1px solid var(--bk-line);
+}
+.bk-input:focus{
+  box-shadow:0 0 0 .25rem rgba(193,154,107,.15);
+  border-color:var(--bk-accent);
+}
+/* Botón “Volver al Dashboard” anclado dentro del header */
+.bk-back{
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  z-index: 2; /* por encima del borde decorativo */
+  background: rgba(15,15,16,.70);
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+  color:#f2f0ea;
+  border-color:#ffffff55;
+  border-radius:9999px;
+  padding:.35rem .7rem;
+  box-shadow:0 10px 22px rgba(0,0,0,.35);
+}
+.bk-back:hover{
+  background:#ffffff1f;
+  border-color:#ffffff88;
+  color:#fff;
+}
+
+/* En móviles: que no se superponga; lo bajamos y lo hacemos de flujo normal */
+@media (max-width: 576px){
+  .bk-back{
+    position: static;
+    display: inline-flex;
+    margin-bottom:.5rem;
+  }
+}

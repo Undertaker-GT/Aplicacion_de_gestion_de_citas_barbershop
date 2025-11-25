@@ -1,0 +1,170 @@
+/* ===== Variables y fondo (coherentes con tu tema) ===== */
+:root{
+  --admin-bg:#0f1216;
+  --surface-1:rgba(255,255,255,.04);
+  --surface-2:rgba(255,255,255,.08);
+  --stroke-1:rgba(255,255,255,.12);
+  --text-1:#eef2f7;
+  --text-2:#aab3c2;
+  --brand:#d4af37;
+  --brand-2:#f5d56b;
+  --focus:#89b4ff;
+  --shadow-lg:0 10px 30px rgba(0,0,0,.35);
+  --radius-xl:18px;
+  --radius-lg:14px;
+  --radius-md:12px;
+}
+
+html,body{
+  background:
+    radial-gradient(1200px 600px at 80% -100px, rgba(212,175,55,.08), transparent) no-repeat,
+    radial-gradient(800px 400px at -20% 120%, rgba(212,175,55,.06), transparent) no-repeat,
+    var(--admin-bg);
+  color:var(--text-1);
+}
+
+/* ===== Navbar (igual al resto) ===== */
+.admin-navbar{background:linear-gradient(180deg,#12161b,#0e1115);border-bottom:1px solid var(--stroke-1);position:sticky;top:0;z-index:100}
+.admin-navbar .navbar-brand{color:var(--text-1);text-decoration:none}
+.brand-mark{display:inline-grid;place-items:center;width:30px;height:30px;border-radius:8px;background:linear-gradient(135deg,var(--brand),var(--brand-2));color:#1b1f25;font-weight:800}
+.brand-dot{color:rgba(255,255,255,.6)}
+.admin-navbar .btn.btn-outline-light{--bs-btn-color:var(--text-1);--bs-btn-border-color:var(--stroke-1);--bs-btn-hover-bg:var(--surface-2)}
+.admin-navbar .admin-subtitle{color:rgba(255,255,255,.82)}
+.barber-stripe{height:6px;background:repeating-linear-gradient(45deg,#e63946 0 12px,#fff 12px 24px,#2563eb 24px 36px,#fff 36px 48px)}
+
+/* ===== Hero ===== */
+.hero-card{
+  background:linear-gradient(180deg,rgba(255,255,255,.04),rgba(255,255,255,.02));
+  border:1px solid var(--stroke-1);border-radius:var(--radius-xl);padding:22px;box-shadow:var(--shadow-lg);position:relative}
+.hero-card::after{content:"";position:absolute;inset:0;background:radial-gradient(600px 200px at 110% -30%,rgba(212,175,55,.08),transparent)}
+.hero-title{margin:0 0 4px;font-size:clamp(1.4rem,2.2vw,1.9rem);font-weight:700}
+.hero-sub{margin:0;color:var(--text-2)}
+.hero-actions .btn{margin-left:auto}
+.btn-ghost{border:1px solid var(--stroke-1);background:var(--surface-1);color:var(--text-1);border-radius:12px;padding:.55rem .9rem}
+.btn-ghost:hover{background:var(--surface-2)}
+.btn-admin{color:#1b1f25;background:linear-gradient(135deg,var(--brand),var(--brand-2));border:none;border-radius:12px;padding:.55rem 1rem;box-shadow:0 6px 14px rgba(212,175,55,.25)}
+.btn-admin:hover{filter:brightness(1.03);transform:translateY(-1px)}
+.btn-admin:focus{box-shadow:0 0 0 4px rgba(137,180,255,.25)}
+
+/* ===== Form Card ===== */
+.form-card{
+  background:var(--surface-1);
+  border:1px solid var(--stroke-1);
+  border-radius:20px;
+  padding:22px;
+  box-shadow:var(--shadow-lg);
+}
+
+/* Etiquetas y ayudas */
+.form-label{font-weight:600;color:var(--text-1)}
+.form-hint{color:var(--text-2);font-size:.85rem;margin-top:.35rem}
+
+/* Inputs y selects oscuros con ícono */
+.input-icon{position:relative}
+.input-icon i,
+.input-icon .currency{
+  position:absolute; left:12px; top:50%; transform:translateY(-50%);
+  color:rgba(255,255,255,.65); pointer-events:none; font-size:1rem;
+  z-index:2;
+}
+.input-icon .currency{font-weight:800;letter-spacing:.2px}
+
+.form-control,
+.form-select{
+  background:rgba(255,255,255,.04);
+  border:1px solid var(--stroke-1);
+  color:var(--text-1);
+  border-radius:var(--radius-lg);
+  padding:.6rem .9rem .6rem 2.2rem; /* espacio para el ícono */
+}
+.form-control::placeholder{color:rgba(255,255,255,.55)}
+.form-control:focus,
+.form-select:focus{
+  background:rgba(255,255,255,.06);
+  border-color:rgba(212,175,55,.5);
+  box-shadow:0 0 0 4px rgba(137,180,255,.15);
+}
+
+/* Textarea altura consistente */
+textarea.form-control{min-height:110px}
+
+/* Responsivo */
+@media (max-width: 576px){
+  .form-card{padding:18px}
+  .btn-ghost, .btn-admin{width:100%}
+}
+/* === Texto legible mientras se escribe === */
+.form-control,
+.form-select,
+textarea.form-control {
+  color: var(--text-1) !important;      /* texto siempre claro */
+  caret-color: var(--text-1);           /* cursor visible */
+  color-scheme: dark;                   /* widgets oscuros (spinners, etc.) */
+}
+
+/* En foco: mantener color y subir un poco el fondo */
+.form-control:focus,
+.form-select:focus,
+textarea.form-control:focus {
+  color: var(--text-1) !important;
+  background: rgba(255,255,255,.07);    /* opcional: un pelín más claro al escribir */
+  border-color: rgba(212,175,55,.55);
+  box-shadow: 0 0 0 4px rgba(137,180,255,.15);
+}
+
+/* Placeholders tenues pero legibles */
+.form-control::placeholder,
+textarea.form-control::placeholder {
+  color: rgba(255,255,255,.60) !important;
+  opacity: 1;
+}
+
+/* Autofill (Chrome/Edge/Safari) para que no vuelva el texto negro */
+input:-webkit-autofill,
+textarea:-webkit-autofill,
+select:-webkit-autofill {
+  -webkit-text-fill-color: var(--text-1) !important;
+  transition: background-color 9999s ease-out 0s; /* truco para anular amarillo */
+  box-shadow: 0 0 0 1000px rgba(255,255,255,.06) inset !important;
+}
+/* === Select oscuro y legible === */
+
+/* El control en sí */
+.form-select {
+  color: var(--text-1) !important;
+  background-color: rgba(255,255,255,.06);
+  border: 1px solid var(--stroke-1);
+  color-scheme: dark; /* ayuda a que el popup sea oscuro en varios navegadores */
+}
+
+/* Opciones dentro del desplegable (Chrome/Edge/Firefox) */
+.form-select option,
+select option {
+  background-color: #14191f;        /* fondo oscuro para la lista */
+  color: #e9eef6;                    /* texto claro */
+}
+
+/* Placeholder/primera opción “Seleccionar tipo…” */
+.form-select option[value=""],
+.form-select option[disabled][selected] {
+  color: rgba(255,255,255,.70);
+}
+
+/* Estado seleccionado en la lista */
+.form-select option:checked {
+  background-color: rgba(212,175,55,.28) !important; /* dorado suave */
+  color: #ffffff !important;
+}
+
+/* Opciones deshabilitadas, por si las usas */
+.form-select option:disabled {
+  color: rgba(255,255,255,.45) !important;
+}
+
+/* Mantener legible mientras está en foco (escribimos arriba) */
+.form-select:focus {
+  color: var(--text-1) !important;
+  background-color: rgba(255,255,255,.07);
+  border-color: rgba(212,175,55,.55);
+  box-shadow: 0 0 0 4px rgba(137,180,255,.15);
+}

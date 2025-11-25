@@ -1,0 +1,177 @@
+/* ===== variables/tema ===== */
+:root{
+  --admin-bg:#0f1216;
+  --surface-1:rgba(255,255,255,.04);
+  --surface-2:rgba(255,255,255,.08);
+  --stroke-1:rgba(255,255,255,.12);
+  --text-1:#eef2f7; --text-2:#aab3c2;
+  --brand:#d4af37; --brand-2:#f5d56b;
+  --focus:#89b4ff;
+  --shadow-lg:0 10px 30px rgba(0,0,0,.35);
+  --radius-xl:18px; --radius-lg:12px;
+}
+
+html,body.admin-horarios{
+  background:
+    radial-gradient(1200px 600px at 80% -100px, rgba(212,175,55,.08), transparent) no-repeat,
+    radial-gradient(800px 400px at -20% 120%, rgba(212,175,55,.06), transparent) no-repeat,
+    var(--admin-bg);
+  color:var(--text-1);
+}
+
+/* ===== hero ===== */
+.hero-card{
+  background:linear-gradient(180deg,rgba(255,255,255,.04),rgba(255,255,255,.02));
+  border:1px solid var(--stroke-1); border-radius:var(--radius-xl);
+  padding:22px; box-shadow:var(--shadow-lg); position:relative;
+}
+.hero-card::after{content:""; position:absolute; inset:0;
+  background:radial-gradient(600px 200px at 110% -30%, rgba(212,175,55,.08), transparent);
+  pointer-events:none; z-index:0;
+}
+.hero-card>*{ position:relative; z-index:1; }
+.hero-title{ margin:0 0 4px; font-size:clamp(1.5rem,2.2vw,2rem); font-weight:800; }
+.hero-sub{ margin:0; color:var(--text-2); }
+.btn-ghost{
+  border:1px solid var(--stroke-1); background:var(--surface-1);
+  color:var(--text-1); border-radius:12px; padding:.55rem .9rem;
+}
+.btn-ghost:hover{ background:var(--surface-2); }
+
+/* ===== form ===== */
+.form-card{
+  background:var(--surface-1); border:1px solid var(--stroke-1);
+  border-radius:20px; padding:18px; box-shadow:var(--shadow-lg);
+}
+.form-label{ color:var(--text-2); font-weight:700; }
+.form-control{
+  background:rgba(255,255,255,.06); border:1px solid var(--stroke-1);
+  color:var(--text-1); border-radius:var(--radius-lg); color-scheme:dark; caret-color:var(--text-1);
+}
+.form-control:focus{
+  background:rgba(255,255,255,.08); border-color:rgba(212,175,55,.55);
+  box-shadow:0 0 0 4px rgba(137,180,255,.15);
+}
+
+/* Switch (día cerrado) */
+.switch{ position:relative; width:56px; height:30px; display:inline-block; }
+.switch input{ display:none; }
+.slider{
+  position:absolute; inset:0; background:rgba(255,255,255,.12);
+  border:1px solid var(--stroke-1); border-radius:999px; transition:.25s;
+}
+.slider::before{
+  content:""; position:absolute; height:22px; width:22px; left:4px; top:3px;
+  background:#d1d5db; border-radius:50%; transition:.25s;
+}
+.switch input:checked + .slider{
+  background:linear-gradient(135deg,#ef4444,#f87171); border-color:rgba(239,68,68,.55);
+}
+.switch input:checked + .slider::before{ transform:translateX(26px); background:#fff; }
+
+/* Botón primario dorado */
+.btn-admin{
+  color:#1b1f25; background:linear-gradient(135deg,var(--brand),var(--brand-2));
+  border:none; border-radius:12px; padding:.55rem .95rem; font-weight:700;
+  box-shadow:0 6px 14px rgba(212,175,55,.25);
+}
+.btn-admin:hover{ filter:brightness(1.03); transform:translateY(-1px); }
+
+/* ===== tabla ===== */
+.surface{ background:var(--surface-1); border:1px solid var(--stroke-1);
+  border-radius:16px; box-shadow:var(--shadow-lg); }
+.surface-h{ border-bottom:1px solid var(--stroke-1); background:rgba(255,255,255,.03); }
+
+.table-wrap{ overflow:auto; border-radius:16px; }
+.admin-table{ margin:0; }
+.admin-table thead th{
+  position:sticky; top:0; z-index:5;
+  background:linear-gradient(180deg,rgba(255,255,255,.06),rgba(255,255,255,.03)) !important;
+  color:var(--text-1) !important; font-weight:700;
+  border-bottom:1px solid var(--stroke-1) !important;
+}
+.admin-table td,.admin-table th{ border-color:var(--stroke-1) !important; }
+.admin-table tbody tr:hover{ background:rgba(255,255,255,.05); }
+.text-muted-2{ color:var(--text-2); }
+
+/* badges de estado */
+.badge{ border-radius:999px; padding:.45rem .7rem; font-weight:700; border:1px solid transparent; }
+.status-open{ background:rgba(34,197,94,.18); color:#c9f7d9; border-color:rgba(34,197,94,.5); }
+.status-closed{ background:rgba(239,68,68,.22); color:#ffd1d1; border-color:rgba(239,68,68,.55); }
+
+/* acciones */
+.btn-action{
+  display:inline-flex; align-items:center; gap:.35rem;
+  background:var(--surface-1); border:1px solid var(--stroke-1);
+  color:var(--text-1); padding:.42rem .65rem; border-radius:10px; font-weight:600;
+}
+.btn-action:hover{ background:var(--surface-2); }
+.btn-action.danger{ background:rgba(239,68,68,.18); border-color:rgba(239,68,68,.55); color:#ffd1d1; }
+
+/* responsive */
+@media (max-width:576px){
+  .btn-action span{ display:none; } /* solo icono en móvil */
+}
+/* === 1) Inputs siempre legibles (incluye "Motivo") === */
+.admin-horarios .form-control,
+.admin-horarios .form-select,
+.admin-horarios textarea.form-control{
+  background-color: rgba(255,255,255,.06) !important;
+  color: var(--text-1) !important;
+  border: 1px solid var(--stroke-1) !important;
+  border-radius: 12px;
+  color-scheme: dark;          /* date/time pickers oscuros */
+  caret-color: var(--text-1);
+}
+.admin-horarios .form-control:focus,
+.admin-horarios .form-select:focus,
+.admin-horarios textarea.form-control:focus{
+  background-color: rgba(255,255,255,.09) !important;
+  border-color: rgba(212,175,55,.55) !important;
+  box-shadow: 0 0 0 4px rgba(137,180,255,.15) !important;
+  color: var(--text-1) !important;
+}
+.admin-horarios .form-control::placeholder,
+.admin-horarios textarea.form-control::placeholder{
+  color: rgba(255,255,255,.65) !important;
+  opacity: 1;
+}
+/* Autofill (Chrome/Edge/Safari) sin fondo claro */
+.admin-horarios input:-webkit-autofill,
+.admin-horarios textarea:-webkit-autofill,
+.admin-horarios select:-webkit-autofill{
+  -webkit-text-fill-color: var(--text-1) !important;
+  box-shadow: 0 0 0 1000px rgba(255,255,255,.06) inset !important;
+  transition: background-color 9999s ease-out 0s;
+}
+
+/* === 2) Mensaje “Si está activado…” más visible === */
+.admin-horarios .text-muted{
+  color: rgba(255,255,255,.78) !important;   /* sube contraste */
+}
+
+/* === 3) Tabla dark: elimina blancos de Bootstrap === */
+.admin-horarios .surface { background: var(--surface-1); border:1px solid var(--stroke-1); }
+.admin-horarios .table-wrap { border-radius: 16px; overflow: auto; }
+
+.admin-horarios .table,
+.admin-horarios .table > :not(caption) > * > *{
+  background-color: transparent !important;
+  color: var(--text-1);
+  border-color: var(--stroke-1) !important;
+}
+/* Encabezado fijo y oscuro */
+.admin-horarios .admin-table thead th{
+  position: sticky; top: 0; z-index: 5;
+  background: linear-gradient(180deg, rgba(255,255,255,.06), rgba(255,255,255,.03)) !important;
+  color: var(--text-1) !important;
+  border-bottom: 1px solid var(--stroke-1) !important;
+}
+/* Zebra dark muy sutil (quita si no lo quieres) */
+.admin-horarios .admin-table > tbody > tr:nth-of-type(odd) > *{
+  background-color: rgba(255,255,255,.03) !important;
+}
+/* Hover */
+.admin-horarios .admin-table.table-hover > tbody > tr:hover > *{
+  background-color: rgba(255,255,255,.07) !important;
+}

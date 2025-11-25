@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Gestión de Horarios - BLANK concept</title>
+
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css" rel="stylesheet">
+  <link rel="stylesheet" href="/static/CSS/admin_horarios.css">
+</head>
+<body class="admin-theme admin-horarios">
+
+  <!-- Hero / encabezado -->
+  <header class="container mt-4">
+    <div class="hero-card">
+      <div class="d-flex align-items-center justify-content-between flex-wrap gap-3">
+        <div>
+          <h1 class="hero-title">Gestión de Horarios</h1>
+          <p class="hero-sub">Define horarios especiales o marca días cerrados (festivos, mantenimiento, etc.).</p>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- Formulario -->
+  <main class="container my-4">
+    <div class="form-card">
+      <form method="POST" action="{{ url_for('admin_horarios') }}" class="row g-3">
+        <div class="col-md-3">
+          <label class="form-label">Fecha</label>
+          <input type="date" name="fecha" class="form-control" required>
+        </div>
+
+        <div class="col-md-3">
+          <label class="form-label">Hora Apertura</label>
+          <input type="time" name="hora_apertura" id="hora_apertura" class="form-control">
+        </div>
+
+        <div class="col-md-3">
+          <label class="form-label">Hora Cierre</label>
+          <input type="time" name="hora_cierre" id="hora_cierre" class="form-control">
+        </div>
+
+        <div class="col-md-3">
+          <label class="form-label">Motivo (opcional)</label>
+          <input type="text" name="motivo" class="form-control" placeholder="Ej.: Feriado, mantenimiento…">
+        </div>
+
+        <!-- Switch Día cerrado -->
+        <div class="col-12 d-flex align-items-center gap-3 mt-2">
+          <label class="switch">
+            <input type="checkbox" name="cerrado" id="cerrado">
+            <span class="slider"></span>
+          </label>
+          <div>
+            <div class="fw-semibold">Día cerrado</div>
+            <div class="text-muted small">Si está activado, las horas de apertura/cierre se ignorarán.</div>
+          </div>
+          <div class="ms-auto d-flex gap-2">
+            <button type="submit" class="btn btn-admin">
+              <i class="bi bi-save2 me-1"></i> Guardar
+            </button>
+            <a href="{{ url_for('admin_dashboard') }}" class="btn btn-ghost">Volver</a> 
+          </div>
+        </div>
+      </form>
+    </div>
+
+    <!-- Tabla: próximos horarios especiales -->
+    <section class="mt-4">
+      <div class="card surface">
+        <div class="card-header surface-h">
+          <h5 class="m-0">Próximos Horarios Especiales</h5>
+        </div>
+        <div class="card-body p-0">
+          <div class="table-wrap">
+            <table class="table admin-table align-middle">
+              <thead>
+                <tr>
+                  <th>Fecha</th>
+                  <th>Horario</th>
+                  <th class="text-center">Cerrado</th>
+                  <th>Motivo</th>
+                  <th class="text-center">Acción</th>
+                </tr>
+              </thead>
+              <tbody>
+                {% if horarios %}
+                  {% for h in horarios %}
+                  <tr>
+                    <td class="fw-semibold">{{ h.fecha }}</td>
+                    <td class="text-muted-2">
+                      {% if h.cerrado %} — {% else %} {{ h.hora_apertura }} – {{ h.hora_cierre }} {% endif %}
+                    </td>
+                    <td class="text-center">
+                      {% if h.cerrado %}
+                        <span class="badge status-closed">Cerrado</span>
+                      {% else %}
+                        <span class="badge status-open">Abierto</span>
+                      {% endif %}
+                    </td>
+                    <td class="text-muted-2">{{ h.motivo or "—" }}</td>
+                    <td class="text-center">
+                      <form method="POST" action="{{ url_for('eliminar_horario_especial', id=h.id) }}" class="d-inline">
+                        <button type="submit" class="btn btn-action danger" onclick="return confirm('¿Eliminar este registro de horario especial?')">
+                          <i class="bi bi-trash3"></i> <span>Eliminar</span>
+                        </button>
+                      </form>
+                    </td>
+                  </tr>
+                  {% endfor %}
+                {% else %}
+                  <tr>
+                    <td colspan="5" class="text-center text-muted py-4">No hay horarios especiales registrados</td>
+                  </tr>
+                {% endif %}
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="container py-4">
+    <p class="text-center text-muted m-0 small">© {{ 2025 }} BLANK concept · BarberShop Admin</p>
+  </footer>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+  <script>
+    // UX: si "Día cerrado" está activo, deshabilita horas y quita requerido
+    const cerrado = document.getElementById('cerrado');
+    const hA = document.getElementById('hora_apertura');
+    const hC = document.getElementById('hora_cierre');
+
+    function toggleHoras() {
+      const off = cerrado.checked;
+      [hA, hC].forEach(el => {
+        el.disabled = off;
+        el.required = !off;
+        if (off) el.value = '';
+      });
+    }
+    cerrado?.addEventListener('change', toggleHoras);
+    toggleHoras();
+
+    // Evitar cambiar horas con rueda por accidente
+    [hA, hC].forEach(el => el?.addEventListener('wheel', e => e.target.blur(), {passive:true}));
+  </script>
+</body>
+</html>

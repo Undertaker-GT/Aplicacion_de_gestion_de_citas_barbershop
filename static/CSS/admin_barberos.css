@@ -1,0 +1,156 @@
+/* ==== base (coherente con el resto) ==== */
+:root{
+  --admin-bg:#0f1216;
+  --surface-1:rgba(255,255,255,.04);
+  --surface-2:rgba(255,255,255,.08);
+  --stroke-1:rgba(255,255,255,.12);
+  --text-1:#eef2f7;
+  --text-2:#aab3c2;
+  --brand:#d4af37; --brand-2:#f5d56b;
+  --focus:#89b4ff;
+  --shadow-lg:0 10px 30px rgba(0,0,0,.35);
+  --radius-xl:18px;
+}
+
+html,body{
+  background:
+    radial-gradient(1200px 600px at 80% -100px, rgba(212,175,55,.08), transparent) no-repeat,
+    radial-gradient(800px 400px at -20% 120%, rgba(212,175,55,.06), transparent) no-repeat,
+    var(--admin-bg);
+  color:var(--text-1);
+}
+
+/* navbar */
+.admin-navbar{background:linear-gradient(180deg,#12161b,#0e1115);border-bottom:1px solid var(--stroke-1);position:sticky;top:0;z-index:100}
+.admin-navbar .navbar-brand{color:var(--text-1);text-decoration:none}
+.brand-mark{display:inline-grid;place-items:center;width:30px;height:30px;border-radius:8px;background:linear-gradient(135deg,var(--brand),var(--brand-2));color:#1b1f25;font-weight:800}
+.brand-dot{color:rgba(255,255,255,.6)}
+.admin-navbar .admin-subtitle{color:rgba(255,255,255,.82)}
+.admin-navbar .btn.btn-outline-light{--bs-btn-color:var(--text-1);--bs-btn-border-color:var(--stroke-1);--bs-btn-hover-bg:var(--surface-2)}
+.barber-stripe{height:6px;background:repeating-linear-gradient(45deg,#e63946 0 12px,#fff 12px 24px,#2563eb 24px 36px,#fff 36px 48px)}
+
+/* hero */
+.hero-card{background:linear-gradient(180deg,rgba(255,255,255,.04),rgba(255,255,255,.02));border:1px solid var(--stroke-1);border-radius:var(--radius-xl);padding:22px;box-shadow:var(--shadow-lg);position:relative}
+.hero-card::after{content:"";position:absolute;inset:0;background:radial-gradient(600px 200px at 110% -30%,rgba(212,175,55,.08),transparent)}
+.hero-title{margin:0 0 4px;font-size:clamp(1.5rem,2.2vw,2rem);font-weight:700}
+.hero-bc .breadcrumb{--bs-breadcrumb-divider: '›'}
+.hero-bc .breadcrumb a{color:var(--text-1)}
+.hero-bc .breadcrumb .active{color:var(--text-2)}
+
+.btn-admin{color:#1b1f25;background:linear-gradient(135deg,var(--brand),var(--brand-2));border:none;border-radius:12px;padding:.55rem .9rem;box-shadow:0 6px 14px rgba(212,175,55,.25)}
+.btn-admin:hover{filter:brightness(1.03);transform:translateY(-1px)}
+
+/* alerts */
+.soft-alert{background:var(--surface-1);border:1px solid var(--stroke-1);color:var(--text-1)}
+.soft-alert .btn-close{filter:invert(1);opacity:.7}
+
+/* card / table */
+.surface{background:var(--surface-1);border:1px solid var(--stroke-1);border-radius:16px;box-shadow:var(--shadow-lg)}
+.surface-h{border-bottom:1px solid var(--stroke-1);background:rgba(255,255,255,.03)}
+
+.table-wrap{overflow:auto;border-radius:16px}
+.admin-table{margin:0}
+.admin-table thead th{
+  position:sticky;top:0;z-index:5;
+  background:linear-gradient(180deg,rgba(255,255,255,.06),rgba(255,255,255,.03));
+  border-bottom:1px solid var(--stroke-1);
+  color:var(--text-1);font-weight:700}
+.admin-table td,.admin-table th{border-color:var(--stroke-1)}
+.admin-table tbody tr{transition:background .2s ease}
+.admin-table tbody tr:hover{background:rgba(255,255,255,.05)}
+.text-muted-2{color:var(--text-2)}
+
+/* estado */
+.badge{border-radius:999px;padding:.45rem .7rem;font-weight:700;border:1px solid transparent}
+.status-active{background:rgba(34,197,94,.16);color:#9be7b0;border-color:rgba(34,197,94,.4)}
+.status-inactive{background:rgba(148,163,184,.18);color:#d3dae6;border-color:rgba(148,163,184,.35)}
+
+/* acciones */
+.btn-group-actions{display:inline-flex;gap:.35rem}
+.btn-action{
+  display:inline-flex;align-items:center;gap:.35rem;
+  background:var(--surface-1);
+  border:1px solid var(--stroke-1);
+  color:var(--text-1);
+  padding:.42rem .6rem;border-radius:10px;font-weight:600
+}
+.btn-action:hover{background:var(--surface-2)}
+.btn-action.ok{border-color:rgba(34,197,94,.45);background:rgba(34,197,94,.15);color:#b9f7c7}
+.btn-action.warn{border-color:rgba(245,158,11,.45);background:rgba(245,158,11,.18);color:#ffe3b3}
+
+/* responsive */
+@media (max-width:576px){
+  .btn-group-actions span{display:none} /* en móvil deja sólo iconos */
+}
+/* === 1) Tabla oscura: elimina blancos de Bootstrap === */
+
+/* Celdas siempre transparentes (usa nuestro tema) */
+.admin-table,
+.admin-table > :not(caption) > * > * {
+  background-color: transparent !important;
+  color: var(--text-1);
+}
+
+/* Zebra dark y hover legible */
+.admin-table.table-striped > tbody > tr:nth-of-type(odd) > * {
+  background-color: rgba(255,255,255,.04) !important;
+}
+.admin-table.table-hover > tbody > tr:hover > * {
+  background-color: rgba(255,255,255,.08) !important;
+}
+
+/* Encabezado: quita el blanco de .table-light si aún se aplica */
+.table thead.table-light th,
+.admin-table thead th {
+  background: linear-gradient(180deg, rgba(255,255,255,.06), rgba(255,255,255,.03)) !important;
+  color: var(--text-1) !important;
+  border-bottom: 1px solid var(--stroke-1) !important;
+}
+
+/* Fallback si por error no pusiste .admin-table en el <table> */
+.table > :not(caption) > * > * { background-color: transparent !important; }
+.table.table-striped > tbody > tr:nth-of-type(odd) > * { background-color: rgba(255,255,255,.04) !important; }
+.table.table-hover   > tbody > tr:hover > *         { background-color: rgba(255,255,255,.08) !important; }
+
+/* Bordes suaves */
+.admin-table td, .admin-table th { border-color: var(--stroke-1) !important; }
+
+/* === 2) Badges con más contraste sobre fondo oscuro === */
+.badge { border-radius: 999px; padding: .45rem .7rem; font-weight: 700; border: 1px solid transparent; }
+.status-active   { background: rgba(34,197,94,.20);  border-color: rgba(34,197,94,.50);  color: #c9f7d9; }
+.status-inactive { background: rgba(148,163,184,.20); border-color: rgba(148,163,184,.45); color: #e3e8f0; }
+
+/* === 3) Botones de acción con contraste real === */
+.btn-group-actions { display: inline-flex; gap: .35rem; }
+.btn-action {
+  display: inline-flex; align-items: center; gap: .35rem;
+  padding: .42rem .65rem; border-radius: 10px; font-weight: 600;
+  background: var(--surface-1); border: 1px solid var(--stroke-1); color: var(--text-1);
+}
+.btn-action:hover { background: var(--surface-2); }
+
+.btn-action.ok {
+  background: rgba(34,197,94,.22);
+  border-color: rgba(34,197,94,.55);
+  color: #baf7c7;
+}
+.btn-action.ok:hover { background: rgba(34,197,94,.30); }
+
+.btn-action.warn {
+  background: rgba(245,158,11,.25);
+  border-color: rgba(245,158,11,.60);
+  color: #ffe3b3;
+}
+.btn-action.warn:hover { background: rgba(245,158,11,.32); }
+/* El overlay visual del hero NO debe bloquear clics */
+.hero-card { position: relative; }
+.hero-card::after {
+  pointer-events: none;   /* deja pasar los clics */
+  z-index: 0;             /* por debajo del contenido */
+}
+
+/* Asegura que el contenido esté por encima del overlay */
+.hero-card > * { position: relative; z-index: 1; }
+
+/* Por si acaso, eleva el botón del hero */
+.hero-card .btn { position: relative; z-index: 2; }

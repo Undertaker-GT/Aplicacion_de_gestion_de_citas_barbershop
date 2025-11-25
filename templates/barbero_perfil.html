@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Editar Perfil - BLANK concept</title>
+
+  <!-- Bootstrap -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet"/>
+
+  <!-- Iconos + Fuentes -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css" rel="stylesheet"/>
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet"/>
+
+  <!-- Estilos compartidos del dashboard (paleta/variables) -->
+  <link rel="stylesheet" href="/static/CSS/barberoD.css"/>
+  <!-- Estilos específicos de esta página -->
+  <link rel="stylesheet" href="/static/CSS/barbero_profile.css"/>
+</head>
+
+<body class="bk-body">
+  <!-- Encabezado con borde barbero -->
+  <header class="container mt-4">
+    <div class="header-card pole-border text-center p-4">
+      <div class="d-flex align-items-center justify-content-center gap-2">
+        <i class="bi bi-scissors"></i>
+        <h1 class="brand m-0">BLANK CONCEPT</h1>
+      </div>
+      <p class="lead m-0">Editar Perfil</p>
+    </div>
+  </header>
+
+  <main class="container mt-4 profile-wrap">
+    <div class="row g-4">
+      <!-- Preview / avatar -->
+      <div class="col-md-4">
+        <section class="card bk-card p-3 h-100">
+          <h6 class="text-uppercase text-secondary mb-2">Tu foto</h6>
+
+          <div class="avatar-frame mx-auto">
+            {% if barbero.foto_perfil %}
+              <img id="avatarPreview"
+                   src="{{ url_for('static', filename='uploads/barberos/' ~ barbero.foto_perfil) }}"
+                   alt="Foto de perfil" class="avatar-ring" />
+            {% else %}
+              <img id="avatarPreview"
+                   src="{{ url_for('static', filename='img/default_profile.png') }}"
+                   alt="Foto de perfil" class="avatar-ring" />
+            {% endif %}
+            <button type="button" class="avatar-overlay btn btn-outline-light btn-sm" id="btnCambiarFoto">
+              <i class="bi bi-camera me-1"></i> Cambiar
+            </button>
+          </div>
+
+          <p class="text-secondary mt-3 small text-center">
+            PNG/JPG/WebP • Sugerido 512×512
+          </p>
+        </section>
+      </div>
+
+      <!-- Formulario -->
+      <div class="col-md-8">
+        <section class="card bk-card p-3">
+          <div class="d-flex align-items-center justify-content-between mb-3">
+            <div>
+              <div class="text-secondary small">Barbero</div>
+              <h5 class="m-0">{{ barbero.nombre }} {{ barbero.apellido }}</h5>
+            </div>
+            <a href="{{ url_for('barber_dashboard') }}" class="btn btn-outline-light">
+              <i class="bi bi-arrow-left-short me-1"></i> Volver
+            </a>
+          </div>
+
+          <form method="POST" enctype="multipart/form-data" id="perfilForm" novalidate>
+            <!-- Biografía -->
+            <div class="mb-3">
+              <label for="biografia" class="form-label">Biografía</label>
+              <input type="text"
+                     class="form-control bk-input"
+                     id="biografia"
+                     name="biografia"
+                     maxlength="60"
+                     value="{{ barbero.biografia or '' }}"
+                     placeholder="Ej. Especialista en fades y afeitados clásicos"
+                     required>
+              <div class="d-flex justify-content-between small mt-1">
+                <span class="text-secondary">Máx. 60 caracteres</span>
+                <span id="bioCount" class="text-secondary">0/60</span>
+              </div>
+            </div>
+
+            <!-- Archivo (oculto visualmente, activado por botón) -->
+            <input class="form-control d-none" type="file" id="foto_perfil" name="foto_perfil"
+                   accept="image/png,image/jpeg,image/webp"/>
+
+            <div class="d-flex gap-2 flex-wrap">
+              <button type="submit" class="btn btn-accent">
+                <i class="bi bi-check2-circle me-1"></i> Guardar cambios
+              </button>
+              <button type="button" id="btnLimpiarFoto" class="btn btn-secondary">
+                <i class="bi bi-arrow-counterclockwise me-1"></i> Quitar selección
+              </button>
+            </div>
+          </form>
+        </section>
+      </div>
+    </div>
+  </main>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="/static/JS/barbero_profile.js"></script>
+</body>
+</html>

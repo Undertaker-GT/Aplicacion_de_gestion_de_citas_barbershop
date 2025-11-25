@@ -1,0 +1,272 @@
+/* ====== variables y fondo (mismas del dashboard) ====== */
+:root{
+  --admin-bg:#0f1216;
+  --surface-1:rgba(255,255,255,.04);
+  --surface-2:rgba(255,255,255,.08);
+  --stroke-1:rgba(255,255,255,.12);
+  --text-1:#eef2f7;
+  --text-2:#aab3c2;
+  --brand:#d4af37;
+  --brand-2:#f5d56b;
+  --shadow-lg:0 10px 30px rgba(0,0,0,.35);
+  --radius-xl:18px;
+  --focus:#89b4ff;
+}
+
+html,body{
+  background:
+    radial-gradient(1200px 600px at 80% -100px, rgba(212,175,55,.08), transparent) no-repeat,
+    radial-gradient(800px 400px at -20% 120%, rgba(212,175,55,.06), transparent) no-repeat,
+    var(--admin-bg);
+  color:var(--text-1);
+}
+
+/* ===== navbar igual que dashboard ===== */
+.admin-navbar{background:linear-gradient(180deg,#12161b,#0e1115);border-bottom:1px solid var(--stroke-1);position:sticky;top:0;z-index:100}
+.admin-navbar .navbar-brand{color:var(--text-1);text-decoration:none}
+.brand-mark{display:inline-grid;place-items:center;width:30px;height:30px;border-radius:8px;background:linear-gradient(135deg,var(--brand),var(--brand-2));color:#1b1f25;font-weight:800}
+.brand-dot{color:rgba(255,255,255,.6)}
+.admin-navbar .btn.btn-outline-light{--bs-btn-color:var(--text-1);--bs-btn-border-color:var(--stroke-1);--bs-btn-hover-bg:var(--surface-2);--bs-btn-hover-border-color:var(--brand)}
+.barber-stripe{height:6px;background:repeating-linear-gradient(45deg,#e63946 0 12px,#fff 12px 24px,#2563eb 24px 36px,#fff 36px 48px)}
+
+/* ===== hero ===== */
+.hero-card{background:linear-gradient(180deg,rgba(255,255,255,.04),rgba(255,255,255,.02));
+  border:1px solid var(--stroke-1);border-radius:var(--radius-xl);padding:22px;box-shadow:var(--shadow-lg);position:relative}
+.hero-card::after{content:"";position:absolute;inset:0;background:radial-gradient(600px 200px at 110% -30%,rgba(212,175,55,.08),transparent);pointer-events:none}
+.hero-title{margin:0 0 4px;font-size:clamp(1.4rem,2.2vw,1.9rem);font-weight:700}
+.hero-sub{margin:0;color:var(--text-2)}
+.hero-actions{display:flex;gap:.6rem;flex-wrap:wrap}
+.btn-ghost{border:1px solid var(--stroke-1);background:var(--surface-1);color:var(--text-1);border-radius:12px;padding:.55rem .9rem}
+.btn-ghost:hover{background:var(--surface-2)}
+.btn-admin{color:#1b1f25;background:linear-gradient(135deg,var(--brand),var(--brand-2));border:none;border-radius:12px;padding:.55rem .9rem;box-shadow:0 6px 14px rgba(212,175,55,.25)}
+.btn-admin:hover{filter:brightness(1.03);transform:translateY(-1px)}
+
+/* ===== alerts ===== */
+.soft-alert{background:var(--surface-1);border:1px solid var(--stroke-1);color:var(--text-1)}
+.soft-alert .btn-close{filter:invert(1);opacity:.7}
+
+/* ===== contenedor y tarjeta ===== */
+.surface.card{background:var(--surface-1);border:1px solid var(--stroke-1);border-radius:16px;box-shadow:var(--shadow-lg)}
+
+/* ===== tabla ===== */
+.table-wrap{overflow:auto;border-radius:16px}
+.admin-table{margin:0}
+.admin-table thead th{
+  position:sticky;top:0;z-index:5;
+  background:linear-gradient(180deg,rgba(255,255,255,.06),rgba(255,255,255,.03));
+  border-bottom:1px solid var(--stroke-1);color:var(--text-1);font-weight:700}
+.admin-table tbody tr{transition:background .2s ease, transform .15s ease}
+.admin-table tbody tr:hover{background:rgba(255,255,255,.03)}
+.admin-table td,.admin-table th{border-color:var(--stroke-1)}
+.text-muted-2{color:var(--text-2)}
+.price{font-variant-numeric:tabular-nums;letter-spacing:.2px}
+
+/* anchos utilitarios */
+.w-10{width:10%}.w-12{width:12%}.w-14{width:14%}.w-20{width:20%}
+
+/* ===== badges de tipo ===== */
+.badge{border-radius:999px;padding:.45rem .7rem;font-weight:700;border:1px solid transparent}
+.badge.type-servicio{background:rgba(34,197,94,.15);color:#9be7b0;border-color:rgba(34,197,94,.35)}
+.badge.type-combos{background:rgba(212,175,55,.15);color:#f5d56b;border-color:rgba(212,175,55,.35)}
+.badge.type-extras{background:rgba(59,130,246,.15);color:#b7d3ff;border-color:rgba(59,130,246,.35)}
+/* fallback si el tipo no matchea: */
+.badge[class*="type-"]{background:rgba(255,255,255,.08);color:#e6e6e6;border-color:rgba(255,255,255,.2)}
+
+/* ===== acciones ===== */
+.btn-group-actions{display:inline-flex;gap:.35rem}
+.btn-action{
+  display:inline-flex;align-items:center;gap:.4rem;
+  background:var(--surface-1);border:1px solid var(--stroke-1);
+  color:var(--text-1);padding:.4rem .6rem;border-radius:10px;font-weight:600}
+.btn-action:hover{background:var(--surface-2)}
+.btn-action i{font-size:1rem;line-height:1}
+.btn-action.danger{border-color:rgba(239,68,68,.35);background:rgba(239,68,68,.12);color:#ffd1d1}
+.btn-action.danger:hover{background:rgba(239,68,68,.18)}
+
+/* ===== responsive ===== */
+@media (max-width: 576px){
+  .hero-actions{width:100%}
+  .btn-action span{display:none} /* deja solo iconos en móvil */
+}
+/* --- 1) Quita el blanco de la tabla Bootstrap y mejora hover --- */
+.admin-table,
+.admin-table > :not(caption) > * > * {
+  background-color: transparent !important;  /* sin celdas blancas */
+  color: var(--text-1);
+}
+.admin-table.table-striped > tbody > tr:nth-of-type(odd) > * {
+  background-color: rgba(255,255,255,.04) !important; /* zebra dark */
+}
+.admin-table.table-hover > tbody > tr:hover > * {
+  background-color: rgba(255,255,255,.08) !important;
+}
+
+/* Si todavía usas <table class="table table-striped table-hover"> sin "admin-table" */
+.table.table-striped > tbody > tr:nth-of-type(odd) > * { background-color: rgba(255,255,255,.04) !important; }
+.table.table-hover   > tbody > tr:hover > *             { background-color: rgba(255,255,255,.08) !important; }
+.table > :not(caption) > * > *                           { background-color: transparent !important; }
+
+/* --- 2) Tipo como badge (funciona con mi HTML: <span class="badge type-...">) --- */
+.badge[class*="type-"]{ 
+  display:inline-block; 
+  padding:.45rem .7rem; 
+  border-radius:999px; 
+  font-weight:700; 
+  border:1px solid transparent;
+}
+.badge.type-servicio { background:rgba(34,197,94,.16);  border-color:rgba(34,197,94,.45);  color:#9be7b0; }
+.badge.type-combos   { background:rgba(212,175,55,.16); border-color:rgba(212,175,55,.50); color:#f5d56b; }
+.badge.type-extras   { background:rgba(59,130,246,.16); border-color:rgba(59,130,246,.45); color:#b7d3ff; }
+
+/* Fallback si no usas badge y sólo hay texto en la columna de "Tipo" */
+.admin-table td:nth-child(3){ color:#cfd6e3; text-transform: lowercase; }
+
+/* --- 3) Botones de acción con mayor contraste --- */
+.btn-group-actions { gap:.4rem; }
+.btn-action{
+  display:inline-flex; align-items:center; gap:.4rem;
+  border-radius:10px; font-weight:700; padding:.45rem .7rem;
+  border:1px solid rgba(245,213,107,.55);
+  background:linear-gradient(135deg, rgba(212,175,55,.28), rgba(245,213,107,.18));
+  color:#f7e4a1; box-shadow:0 4px 10px rgba(212,175,55,.15);
+}
+.btn-action:hover{ filter:brightness(1.08); transform:translateY(-1px); }
+
+.btn-action.danger{
+  border-color:#f36a6a;
+  background:linear-gradient(135deg, #ef4444, #f56565);
+  color:#fff; box-shadow:0 4px 10px rgba(239,68,68,.25);
+}
+.btn-action.danger:hover{ filter:brightness(1.06); }
+
+/* Precios y bordes un poco más suaves */
+.price{ font-variant-numeric: tabular-nums; letter-spacing:.2px; }
+.surface.card{ border-color: rgba(255,255,255,.18); }
+/* Mejorar contraste del subtítulo en la navbar (p.ej. "Gestión de Servicios") */
+.admin-navbar .navbar-brand .text-muted,
+.admin-navbar .admin-subtitle,
+.admin-navbar .navbar-brand small {
+  color: rgba(255, 255, 255, 0.82) !important; /* más legible sobre fondo oscuro */
+}
+
+/* Opcional: ajusta el puntito separador */
+.admin-navbar .brand-dot {
+  color: rgba(255, 255, 255, 0.6) !important;
+}
+/* Callout informativo (contraseña temporal) */
+.callout-info{
+  background: rgba(59,130,246,.12);
+  border: 1px solid rgba(59,130,246,.35);
+  border-radius: 14px;
+  padding: 14px 16px;
+}
+.callout-info .callout-icon{
+  width: 36px; height: 36px; border-radius: 10px;
+  display: grid; place-items: center;
+  background: rgba(59,130,246,.18);
+  border: 1px solid rgba(59,130,246,.35);
+  color: #bcd7ff;
+  flex: 0 0 auto;
+}
+
+/* Asegura legibilidad en inputs/fecha/teléfono mientras se escribe (por si faltaba) */
+.form-control, .form-select, textarea.form-control{
+  color: var(--text-1) !important;
+  caret-color: var(--text-1);
+  color-scheme: dark;
+}
+.form-control:focus, .form-select:focus, textarea.form-control:focus{
+  color: var(--text-1) !important;
+  background: rgba(255,255,255,.07);
+  border-color: rgba(212,175,55,.55);
+  box-shadow: 0 0 0 4px rgba(137,180,255,.15);
+}
+/* === Inputs SIEMPRE oscuros y legibles, en todos los estados === */
+.admin-theme .form-control,
+.admin-theme .form-select,
+.admin-theme textarea.form-control {
+  background-color: rgba(255,255,255,.06) !important;
+  color: var(--text-1) !important;
+  border: 1px solid var(--stroke-1) !important;
+  caret-color: var(--text-1);
+  color-scheme: dark; /* date/number spinners oscuros */
+}
+
+.admin-theme .form-control:hover,
+.admin-theme .form-select:hover,
+.admin-theme textarea.form-control:hover {
+  background-color: rgba(255,255,255,.075) !important;
+}
+
+.admin-theme .form-control:focus,
+.admin-theme .form-select:focus,
+.admin-theme textarea.form-control:focus {
+  background-color: rgba(255,255,255,.09) !important;
+  border-color: rgba(212,175,55,.55) !important;
+  box-shadow: 0 0 0 4px rgba(137,180,255,.15) !important;
+  color: var(--text-1) !important;
+}
+
+/* Mantener oscuro aunque haya validación de Bootstrap */
+:root{
+  --bs-form-valid-color: #9be7b0;
+  --bs-form-valid-border-color: rgba(34,197,94,.55);
+  --bs-form-invalid-color: #ffd1d1;
+  --bs-form-invalid-border-color: rgba(239,68,68,.60);
+}
+
+.admin-theme .form-control.is-valid,
+.admin-theme .form-control.is-invalid,
+.admin-theme .form-select.is-valid,
+.admin-theme .form-select.is-invalid,
+.admin-theme .was-validated .form-control:valid,
+.admin-theme .was-validated .form-control:invalid,
+.admin-theme .was-validated .form-select:valid,
+.admin-theme .was-validated .form-select:invalid {
+  background-color: rgba(255,255,255,.06) !important;
+  color: var(--text-1) !important;
+}
+
+.admin-theme .form-control.is-valid,
+.admin-theme .was-validated .form-control:valid,
+.admin-theme .form-select.is-valid,
+.admin-theme .was-validated .form-select:valid {
+  border-color: var(--bs-form-valid-border-color) !important;
+}
+
+.admin-theme .form-control.is-invalid,
+.admin-theme .was-validated .form-control:invalid,
+.admin-theme .form-select.is-invalid,
+.admin-theme .was-validated .form-select:invalid {
+  border-color: var(--bs-form-invalid-border-color) !important;
+}
+
+/* Disabled / read-only también oscuros */
+.admin-theme .form-control:disabled,
+.admin-theme .form-control[readonly],
+.admin-theme .form-select:disabled {
+  background-color: rgba(255,255,255,.05) !important;
+  color: rgba(255,255,255,.75) !important;
+}
+
+/* Placeholders legibles */
+.admin-theme .form-control::placeholder,
+.admin-theme textarea.form-control::placeholder {
+  color: rgba(255,255,255,.65) !important;
+  opacity: 1;
+}
+
+/* Autofill (Chrome/Edge/Safari) para evitar fondo blanco/amarillo */
+.admin-theme input:-webkit-autofill,
+.admin-theme textarea:-webkit-autofill,
+.admin-theme select:-webkit-autofill {
+  -webkit-text-fill-color: var(--text-1) !important;
+  box-shadow: 0 0 0 1000px rgba(255,255,255,.06) inset !important;
+  transition: background-color 9999s ease-out 0s;
+}
+
+/* Date y Number en oscuro (spinners, picker) */
+.admin-theme input[type="date"],
+.admin-theme input[type="number"] {
+  color-scheme: dark;
+}

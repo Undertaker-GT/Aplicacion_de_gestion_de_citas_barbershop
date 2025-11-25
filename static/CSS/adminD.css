@@ -1,0 +1,226 @@
+/* ======= Tema base ======= */
+:root {
+  --admin-bg: #0f1216;
+  --surface-1: rgba(255, 255, 255, 0.04);
+  --surface-2: rgba(255, 255, 255, 0.08);
+  --stroke-1: rgba(255, 255, 255, 0.12);
+  --text-1: #eef2f7;
+  --text-2: #aab3c2;
+  --brand: #d4af37;        /* dorado elegante */
+  --brand-2: #f5d56b;      /* resalte */
+  --focus: #89b4ff;
+
+  /* sombra suave */
+  --shadow-lg: 0 10px 30px rgba(0,0,0,.35);
+  --radius-xl: 18px;
+  --radius-md: 12px;
+}
+
+html, body {
+  background: radial-gradient(1200px 600px at 80% -100px, rgba(212,175,55,.08), transparent) no-repeat,
+              radial-gradient(800px 400px at -20% 120%, rgba(212,175,55,.06), transparent) no-repeat,
+              var(--admin-bg);
+  color: var(--text-1);
+}
+
+/* ======= Navbar ======= */
+.admin-navbar {
+  background: linear-gradient(180deg, #12161b, #0e1115);
+  border-bottom: 1px solid var(--stroke-1);
+  position: sticky;
+  top: 0;
+  z-index: 100;
+}
+
+.admin-navbar .navbar-brand {
+  color: var(--text-1);
+  text-decoration: none;
+}
+.admin-navbar .navbar-brand:hover { opacity: .9; }
+
+.brand-mark {
+  display: inline-grid;
+  place-items: center;
+  width: 30px; height: 30px;
+  border-radius: 8px;
+  background: linear-gradient(135deg, var(--brand), var(--brand-2));
+  color: #1b1f25;
+  font-weight: 800;
+  letter-spacing: .5px;
+}
+.brand-dot { color: var(--text-2); opacity: .7; }
+
+.role-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: .25rem;
+  padding: .35rem .6rem;
+  border: 1px solid var(--stroke-1);
+  border-radius: 999px;
+  background: var(--surface-1);
+  color: var(--text-1);
+  font-size: .85rem;
+}
+
+.admin-navbar .btn.btn-outline-light {
+  --bs-btn-color: var(--text-1);
+  --bs-btn-border-color: var(--stroke-1);
+  --bs-btn-hover-bg: var(--surface-2);
+  --bs-btn-hover-border-color: var(--brand);
+  --bs-btn-active-bg: var(--surface-2);
+  --bs-btn-active-border-color: var(--brand);
+}
+
+/* Barra de barbero (detalle de identidad) */
+.barber-stripe {
+  height: 6px;
+  background: repeating-linear-gradient(
+    45deg,
+    #e63946 0 12px,
+    #ffffff 12px 24px,
+    #2563eb 24px 36px,
+    #ffffff 36px 48px
+  );
+}
+
+/* ======= Hero ======= */
+.hero { margin-top: 32px; }
+.hero-card {
+  background: linear-gradient(180deg, rgba(255,255,255,.04), rgba(255,255,255,.02));
+  border: 1px solid var(--stroke-1);
+  border-radius: var(--radius-xl);
+  padding: 28px;
+  box-shadow: var(--shadow-lg);
+  position: relative;
+  overflow: hidden;
+}
+.hero-card::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(600px 200px at 110% -30%, rgba(212,175,55,.08), transparent);
+  pointer-events: none;
+}
+
+.hero-title {
+  margin: 0 0 4px;
+  font-size: clamp(1.6rem, 2.2vw, 2rem);
+  font-weight: 700;
+  letter-spacing: .2px;
+}
+.hero-sub {
+  margin: 0;
+  color: var(--text-2);
+}
+
+.hero-stamp {
+  width: 68px; height: 68px;
+  border-radius: 16px;
+  display: grid; place-items: center;
+  background: linear-gradient(135deg, var(--brand), var(--brand-2));
+  color: #1b1f25;
+  font-size: 34px;
+  box-shadow: 0 10px 20px rgba(212,175,55,.25);
+}
+
+/* ======= Tarjetas de acciones ======= */
+.admin-card {
+  background: var(--surface-1);
+  border: 1px solid var(--stroke-1);
+  border-radius: var(--radius-xl);
+  padding: 22px;
+  transition: transform .25s ease, box-shadow .25s ease, border-color .25s ease;
+  position: relative;
+  overflow: hidden;
+}
+.admin-card::before {
+  /* borde izquierdo “activo” */
+  content: "";
+  position: absolute;
+  left: -1px; top: -1px; bottom: -1px;
+  width: 4px;
+  border-radius: 4px 0 0 4px;
+  background: linear-gradient(180deg, var(--brand), var(--brand-2));
+  opacity: .7;
+}
+.admin-card:hover {
+  transform: translateY(-4px);
+  box-shadow: var(--shadow-lg);
+  border-color: rgba(212,175,55,.35);
+}
+.admin-card:focus-within {
+  outline: 2px solid var(--focus);
+  outline-offset: 2px;
+}
+
+.admin-card-icon {
+  width: 54px; height: 54px;
+  display: grid; place-items: center;
+  border-radius: 14px;
+  background: linear-gradient(135deg, rgba(212,175,55,.2), rgba(212,175,55,.05));
+  color: var(--brand-2);
+  font-size: 26px;
+  margin-bottom: 12px;
+  border: 1px solid rgba(212,175,55,.35);
+}
+
+.admin-card-title {
+  margin: 0 0 6px;
+  font-weight: 700;
+  letter-spacing: .2px;
+}
+.admin-card-text {
+  margin: 0 0 16px;
+  color: var(--text-2);
+}
+
+/* Botón primario del admin */
+.btn-admin {
+  --bs-btn-padding-y: .55rem;
+  --bs-btn-padding-x: 1rem;
+  --bs-btn-font-weight: 600;
+  --bs-btn-border-radius: 12px;
+
+  color: #1b1f25;
+  background: linear-gradient(135deg, var(--brand), var(--brand-2));
+  border: none;
+  box-shadow: 0 6px 14px rgba(212,175,55,.25);
+}
+.btn-admin:hover {
+  filter: brightness(1.03);
+  transform: translateY(-1px);
+}
+.btn-admin:focus { box-shadow: 0 0 0 4px rgba(137,180,255,.25); }
+
+/* ======= Ajustes generales / compatibilidad con tus .card ======= */
+.card {
+  background: var(--surface-1);
+  border: 1px solid var(--stroke-1);
+  border-radius: var(--radius-md);
+  color: var(--text-1);
+}
+.card .card-title { font-weight: 700; }
+.card .card-text { color: var(--text-2); }
+.btn-primary {
+  background: linear-gradient(135deg, var(--brand), var(--brand-2));
+  border: none;
+  color: #1b1f25;
+  font-weight: 600;
+  border-radius: 10px;
+}
+.btn-primary:hover { filter: brightness(1.03); }
+
+/* ======= Responsivo ======= */
+@media (max-width: 575.98px) {
+  .hero-stamp { width: 56px; height: 56px; font-size: 28px; }
+  .admin-card { padding: 18px; }
+}
+/* Mejora de contraste para "Panel de Administración" en la navbar */
+.admin-navbar .navbar-brand .text-muted {
+  color: rgba(255, 255, 255, .75) !important; /* más visible sobre fondo oscuro */
+}
+
+/* (opcional) suaviza el puntito separador */
+.admin-navbar .brand-dot {
+  color: rgba(255, 255, 255, .55);
+}

@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Barberos - BLANK concept</title>
+
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css" rel="stylesheet">
+  <link rel="stylesheet" href="/static/CSS/admin_barberos.css">
+</head>
+<body class="admin-theme">
+
+  <!-- Topbar -->
+  <nav class="navbar navbar-expand-lg admin-navbar">
+    <div class="container">
+      <a class="navbar-brand d-flex align-items-center gap-2" href="{{ url_for('admin_dashboard') }}">
+        <span class="brand-mark">BC</span>
+        <span class="fw-semibold">BLANK concept</span>
+        <span class="brand-dot">•</span>
+        <span class="small admin-subtitle">Barberos</span>
+      </a>
+      <div class="ms-auto">
+        <a href="{{ url_for('logout') }}" class="btn btn-outline-light btn-sm">
+          <i class="bi bi-box-arrow-right me-1"></i> Cerrar sesión
+        </a>
+      </div>
+    </div>
+    <div class="barber-stripe" aria-hidden="true"></div>
+  </nav>
+
+  <!-- Hero -->
+  <header class="container mt-4">
+    <div class="hero-card">
+      <div class="d-flex align-items-center justify-content-between flex-wrap gap-3">
+        <div>
+          <h1 class="hero-title">Gestión de Barberos</h1>
+          <nav aria-label="breadcrumb" class="hero-bc">
+            <ol class="breadcrumb m-0">
+            <a href="{{ url_for('admin_dashboard') }}" class="btn btn-ghost">
+                <i class="bi bi-arrow-left"></i> Volver al panel
+            </a>
+            </ol>
+          </nav>
+        </div>
+        <a href="{{ url_for('registrar_barbero') }}" class="btn btn-admin">
+          <i class="bi bi-plus-circle me-1"></i> Registrar Nuevo Barbero
+        </a>
+      </div>
+    </div>
+  </header>
+
+  <main class="container my-4">
+
+    {% with messages = get_flashed_messages(with_categories=true) %}
+      {% if messages %}
+        {% for category, message in messages %}
+          <div class="alert alert-{{ category }} alert-dismissible fade show soft-alert" role="alert">
+            {{ message }}
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+          </div>
+        {% endfor %}
+      {% endif %}
+    {% endwith %}
+
+    <div class="card surface">
+      <div class="card-header surface-h">
+        <h5 class="card-title m-0">Lista de Barberos</h5>
+      </div>
+      <div class="card-body p-0">
+        <div class="table-wrap">
+          <table class="table table-hover admin-table align-middle">
+            <thead>
+              <tr>
+                <th>Nombre</th>
+                <th>Email</th>
+                <th>Teléfono</th>
+                <th>Fecha Contratación</th>
+                <th class="text-center">Estado</th>
+                <th class="text-center">Acciones</th>
+              </tr>
+            </thead>
+            <tbody>
+              {% for barbero in barberos %}
+              <tr>
+                <td class="fw-semibold">{{ barbero.nombre }} {{ barbero.apellido }}</td>
+                <td class="text-muted-2">{{ barbero.email }}</td>
+                <td>{{ barbero.telefono if barbero.telefono else 'N/A' }}</td>
+                <td class="text-muted-2">{{ barbero.fecha_contratacion }}</td>
+
+                <td class="text-center">
+                  {% if barbero.estado == 1 %}
+                    <span class="badge status-active">Activo</span>
+                  {% else %}
+                    <span class="badge status-inactive">Inactivo</span>
+                  {% endif %}
+                </td>
+
+                <td class="text-center">
+                  <div class="btn-group-actions">
+                    <form method="POST" action="{{ url_for('cambiar_estado_barbero', barbero_id=barbero.barbero_id) }}" class="d-inline">
+                      {% if barbero.estado == 1 %}
+                        <button type="submit" class="btn btn-action warn" title="Desactivar">
+                          <i class="bi bi-toggle-on"></i><span> Desactivar</span>
+                        </button>
+                      {% else %}
+                        <button type="submit" class="btn btn-action ok" title="Activar">
+                          <i class="bi bi-toggle-off"></i><span> Activar</span>
+                        </button>
+                      {% endif %}
+                    </form>
+                    <a href="{{ url_for('editar_barbero', barbero_id=barbero.barbero_id) }}" class="btn btn-action" title="Editar">
+                      <i class="bi bi-pencil-square"></i><span> Editar</span>
+                    </a>
+                  </div>
+                </td>
+              </tr>
+              {% else %}
+              <tr>
+                <td colspan="6" class="text-center text-muted py-5">No hay barberos registrados</td>
+              </tr>
+              {% endfor %}
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <footer class="container py-4">
+    <p class="text-center text-muted m-0 small">© {{ 2025 }} BLANK concept · BarberShop Admin</p>
+  </footer>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

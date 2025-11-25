@@ -1,0 +1,154 @@
+/* Reutiliza las variables de barberoD.css. Aquí solo reglas de esta página. */
+
+.header-card { 
+  border:1px solid var(--bk-line);
+  border-radius: calc(var(--radius) + 2px);
+  background: linear-gradient(180deg, rgba(255,255,255,.02), rgba(255,255,255,0));
+  box-shadow: var(--shadow);
+}
+
+/* Evita que el borde decorativo capture clics */
+.pole-border { position: relative; z-index: 0; }
+.pole-border::before { pointer-events: none; z-index: 0; }
+.pole-border > * { position: relative; z-index: 1; }
+
+/* Pequeño ajuste para “bajar” el marco si lo deseas */
+:root { --pole-shift-y: 8px; }
+.pole-border::before { transform: translateY(var(--pole-shift-y)); }
+
+.profile-wrap .bk-card { overflow: hidden; }
+
+/* Avatar preview */
+.avatar-frame{
+  position: relative;
+  width: 160px; height: 160px;
+  display: grid; place-items: center;
+}
+.avatar-frame .avatar-ring{
+  width: 150px; height: 150px; object-fit: cover; border-radius: 50%;
+  border:3px solid transparent;
+  background:
+    linear-gradient(var(--bk-card), var(--bk-card)) padding-box,
+    linear-gradient(135deg, var(--bk-accent), var(--bk-blue)) border-box;
+  box-shadow: 0 10px 24px rgba(0,0,0,.45);
+}
+
+.avatar-overlay{
+  position:absolute; inset:auto 0 6px 0; margin:auto; width:max-content;
+  opacity:0; transition: opacity .2s ease;
+}
+.avatar-frame:hover .avatar-overlay{ opacity:1; }
+
+/* Inputs */
+.bk-input{
+  background:#0f0f10; color:var(--bk-ink);
+  border:1px solid var(--bk-line);
+}
+.bk-input:focus{
+  outline:none; box-shadow:0 0 0 .25rem rgba(193,154,107,.15);
+  border-color: var(--bk-accent);
+}
+
+/* Botón acento (si no cargaste la clase desde barberoD.css) */
+/* .btn-accent{ background:linear-gradient(135deg, var(--bk-accent), #b38658); color:#111; border:none; } */
+/* .btn-accent:hover{ filter:brightness(1.05) } */
+
+/* Responsivo */
+@media (max-width: 767.98px){
+  .avatar-frame{ width: 140px; height: 140px; }
+  .avatar-frame .avatar-ring{ width: 130px; height: 130px; }
+}
+/* ====== CONTRASTE DE TEXTO ====== */
+.bk-card,
+.header-card{ color: var(--bk-ink); }
+
+.bk-card h5,
+.bk-card h6,
+.bk-card .form-label,
+.header-card .lead{
+  color: var(--bk-ink);
+}
+
+.bk-body .text-secondary,
+.bk-card .text-secondary,
+.bk-card small,
+.bk-card .small{
+  color: #cecac1 !important;   /* más claro que el secondary default */
+  opacity: 1 !important;
+}
+
+/* Inputs y placeholder más legibles */
+.bk-input{
+  background: #111214;
+  color: #f4f2ec;
+  border: 1px solid #33343a;
+}
+.bk-input::placeholder{
+  color: #bdb8ad;
+  opacity: 1;
+}
+
+/* Contador de biografía */
+#bioCount{ color:#bdb8ad; }
+
+/* ====== BOTONES CON MÁS CONTRASTE ====== */
+.bk-body .btn-outline-light{
+  color:#f2f0ea;
+  border-color:#f2f0ea55;
+  background:#ffffff12;         /* leve fondo para legibilidad */
+}
+.bk-body .btn-outline-light:hover{
+  background:#ffffff22;
+  border-color:#ffffff88;
+  color:#fff;
+}
+
+/* ====== BOTÓN "CAMBIAR" EN LA FOTO ====== */
+.avatar-overlay{
+  background: rgba(15,15,16,.75);        /* fondo semiópaco */
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+  color:#fff;
+  border-color:#ffffff44;
+  padding:.35rem .65rem;
+  border-radius:999px;
+  text-shadow:0 1px 2px rgba(0,0,0,.6);
+  box-shadow:0 6px 18px rgba(0,0,0,.45);
+  opacity:0;                              /* aparece al hover en desktop */
+  transition: opacity .2s ease;
+}
+.avatar-frame:hover .avatar-overlay{ opacity:1; }
+
+/* En móviles no hay hover → muéstralo siempre */
+@media (hover:none){
+  .avatar-overlay{ opacity:1; }
+}
+/* Botón “Volver al Dashboard” anclado dentro del header */
+.bk-back{
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  z-index: 2; /* por encima del borde decorativo */
+  background: rgba(15,15,16,.70);
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+  color:#f2f0ea;
+  border-color:#ffffff55;
+  border-radius:9999px;
+  padding:.35rem .7rem;
+  box-shadow:0 10px 22px rgba(0,0,0,.35);
+}
+.bk-back:hover{
+  background:#ffffff1f;
+  border-color:#ffffff88;
+  color:#fff;
+}
+
+/* En móviles: que no se superponga; lo bajamos y lo hacemos de flujo normal */
+@media (max-width: 576px){
+  .bk-back{
+    position: static;
+    display: inline-flex;
+    margin-bottom:.5rem;
+  }
+}

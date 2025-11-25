@@ -1,0 +1,63 @@
+
+    .barber-card {
+        background: #151515;
+        border-radius: 20px;
+        overflow: hidden;
+        border: 1px solid rgba(255, 255, 255, 0.06);
+        box-shadow: 0 18px 45px rgba(0, 0, 0, 0.7);
+        transition: transform 0.25s ease, box-shadow 0.25s ease, border-color 0.25s ease;
+    }
+
+    .barber-card:hover {
+        transform: translateY(-6px);
+        box-shadow: 0 24px 60px rgba(0, 0, 0, 0.9);
+        border-color: #f5c451; /* dorado */
+    }
+
+    .barber-photo-wrapper {
+        position: relative;
+        overflow: hidden;
+    }
+
+    .barber-card-img {
+        width: 100%;
+        aspect-ratio: 4 / 3;      /* todas las fotos con la misma proporción */
+        object-fit: cover;
+        object-position: center;
+        transform: scale(1.02);
+        transition: transform 0.45s ease;
+    }
+
+    .barber-card:hover .barber-card-img {
+        transform: scale(1.08);   /* zoom suave en hover */
+    }
+
+    .barber-name {
+        font-weight: 600;
+        color: #f5c451;
+        letter-spacing: 0.02em;
+        margin-bottom: 0.35rem;
+    }
+
+    .barber-bio {
+        font-size: 0.92rem;
+        color: #f1f1f1;           /* más contraste, antes era muy tenue */
+        line-height: 1.4;
+        max-height: 4.8rem;       /* ~3 líneas visibles */
+        overflow-y: auto;         /* si se pasa, sale scroll */
+        margin-bottom: 1rem;
+    }
+
+    .barber-bio::-webkit-scrollbar {
+        width: 4px;
+    }
+    .barber-bio::-webkit-scrollbar-thumb {
+        background: rgba(255, 255, 255, 0.25);
+        border-radius: 999px;
+    }
+
+    .barber-card .btn-primary {
+        border-radius: 999px;
+        font-weight: 600;
+        letter-spacing: 0.02em;
+    }

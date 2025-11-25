@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Agenda de Barbero - BLANK concept</title>
+
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet"/>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css" rel="stylesheet"/>
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet"/>
+
+  <link rel="stylesheet" href="/static/CSS/barberoD.css"/>
+  <link rel="stylesheet" href="/static/CSS/barbero_agenda.css"/>
+</head>
+<body class="bk-body">
+  <!-- Header -->
+    <header class="container mt-4">
+    <div class="header-card pole-border text-center p-4 position-relative">
+        <a href="{{ url_for('barber_dashboard') }}" class="bk-back btn btn-outline-light btn-sm">
+        <i class="bi bi-arrow-left-short me-1"></i> Volver al Dashboard
+        </a>
+
+        <div class="d-flex align-items-center justify-content-center gap-2">
+        <i class="bi bi-scissors"></i>
+        <h1 class="brand m-0">BLANK CONCEPT</h1>
+        </div>
+        <p class="lead m-0">Agenda de <strong>{{ barbero.nombre }} {{ barbero.apellido }}</strong></p>
+    </div>
+    </header>   
+
+
+  <main class="container mt-4">
+    <!-- Filtros / búsqueda -->
+    <section class="bk-card p-3">
+      <div class="row g-2 align-items-center">
+        <div class="col-md-6">
+          <div class="btn-group filter-estado" role="group" aria-label="Filtrar por estado">
+            <button class="btn btn-outline-light active" data-filter="all">Todos</button>
+            <button class="btn btn-outline-light" data-filter="pendiente">Pendientes</button>
+            <button class="btn btn-outline-light" data-filter="confirmada">Confirmadas</button>
+            <button class="btn btn-outline-light" data-filter="cancelada">Canceladas</button>
+          </div>
+        </div>
+        <div class="col-md-6">
+          <div class="input-group">
+            <span class="input-group-text"><i class="bi bi-search"></i></span>
+            <input id="agendaSearch" class="form-control bk-input" placeholder="Buscar por cliente o servicio"/>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    {% if citas_futuras %}
+      <!-- Agrupado por fecha -->
+      {% for fecha, citas in citas_futuras|groupby('fecha') %}
+        <section class="day-card bk-card mt-4">
+          <div class="day-head">
+            <div class="date-badge">
+              <span class="dom">{{ fecha.strftime('%d') }}</span>
+              <span class="month">{{ fecha.strftime('%m') }}</span>
+            </div>
+            <h5 class="m-0">Citas para el {{ fecha.strftime('%d/%m/%Y') }}</h5>
+          </div>
+
+          <ul class="timeline list-unstyled m-0">
+            {% for cita in citas|sort(attribute='hora') %}
+              <li class="timeline-item"
+                  data-estado="{{ cita.estado|lower }}"
+                  data-search="{{ (cita.cliente_nombre ~ ' ' ~ cita.cliente_apellido ~ ' ' ~ (cita.servicios or '')) | lower }}"
+                  data-cita-item-id="{{ cita.cita_id }}">
+                <div class="timeline-dot"></div>
+                <div class="timeline-content">
+                  <div class="tc-top">
+                    <span class="timechip"><i class="bi bi-clock me-1"></i>{{ cita.hora }}</span>
+                    <span class="estado-badge estado-{{ cita.estado|lower }}" id="estado-{{ cita.cita_id }}">
+                      {{ cita.estado|capitalize }}
+                    </span>
+                  </div>
+                  <div class="tc-main">
+                    <div class="client">
+                      <i class="bi bi-person me-1"></i><strong>{{ cita.cliente_nombre }} {{ cita.cliente_apellido }}</strong>
+                    </div>
+                    <div class="services">
+                      <i class="bi bi-scissors me-1"></i><small>Servicios: {{ cita.servicios }}</small>
+                    </div>
+                  </div>
+                  <div class="tc-actions">
+                    <button class="btn btn-outline-light btn-sm" data-bs-toggle="modal" data-bs-target="#citaModal{{ cita.cita_id }}">Ver detalles</button>
+
+                    {% if cita.estado == "pendiente" %}
+                      <button class="btn btn-success btn-sm btn-cambiar-estado"
+                              data-cita="{{ cita.cita_id }}" data-estado="confirmada">Confirmar</button>
+                      <button class="btn btn-danger btn-sm" data-bs-toggle="modal" data-bs-target="#cancelModal{{ cita.cita_id }}">Cancelar</button>
+                    {% elif cita.estado == "confirmada" %}
+                      <button class="btn btn-danger btn-sm" data-bs-toggle="modal" data-bs-target="#cancelModal{{ cita.cita_id }}">Cancelar</button>
+                    {% endif %}
+                  </div>
+                </div>
+              </li>
+
+              <!-- Modal Detalles -->
+              <div class="modal fade" id="citaModal{{ cita.cita_id }}" tabindex="-1" aria-hidden="true">
+                <div class="modal-dialog modal-dialog-centered">
+                  <div class="modal-content bk-modal">
+                    <div class="modal-header">
+                      <h5 class="modal-title">Cita de {{ cita.cliente_nombre }} {{ cita.cliente_apellido }}</h5>
+                      <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Cerrar"></button>
+                    </div>
+                    <div class="modal-body">
+                      <p><strong>Fecha:</strong> {{ fecha.strftime('%d/%m/%Y') }}</p>
+                      <p><strong>Hora:</strong> {{ cita.hora }}</p>
+                      <p><strong>Servicios:</strong> {{ cita.servicios }}</p>
+                      <p><strong>Estado:</strong> <span class="estado-badge estado-{{ cita.estado|lower }}">{{ cita.estado|capitalize }}</span></p>
+                      {% if cita.telefono or cita.email %}
+                        <hr>
+                        <p class="mb-1"><strong>Teléfono:</strong> {{ cita.telefono or 'No registrado' }}</p>
+                        <p class="mb-0"><strong>Email:</strong> {{ cita.email or '—' }}</p>
+                      {% endif %}
+                    </div>
+                    <div class="modal-footer">
+                      {% if cita.estado == "pendiente" %}
+                        <button type="button" class="btn btn-success btn-cambiar-estado" data-cita="{{ cita.cita_id }}" data-estado="confirmada">
+                          Confirmar
+                        </button>
+                      {% endif %}
+                      <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Modal Cancelar -->
+              <div class="modal fade" id="cancelModal{{ cita.cita_id }}" tabindex="-1" aria-hidden="true">
+                <div class="modal-dialog modal-dialog-centered">
+                  <div class="modal-content bk-modal">
+                    <form action="{{ url_for('barbero_cancelar_cita') }}" method="POST">
+                      <div class="modal-header">
+                        <h5 class="modal-title">Cancelar Cita #{{ cita.cita_id }}</h5>
+                        <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Cerrar"></button>
+                      </div>
+                      <div class="modal-body">
+                        <input type="hidden" name="cita_id" value="{{ cita.cita_id }}">
+                        <p>Motivo de cancelación:</p>
+                        <textarea name="motivo" class="form-control" rows="3" maxlength="255" required></textarea>
+                        <small class="text-muted">Máximo 255 caracteres</small>
+                      </div>
+                      <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+                        <button type="submit" class="btn btn-danger">Cancelar cita</button>
+                      </div>
+                    </form>
+                  </div>
+                </div>
+              </div>
+            {% endfor %}
+          </ul>
+        </section>
+      {% endfor %}
+    {% else %}
+      <div class="bk-card empty-state mt-4 p-4 text-center">
+        <i class="bi bi-emoji-smile mb-2" style="font-size:2rem"></i>
+        <p class="m-0">No tienes citas programadas en los próximos días.</p>
+      </div>
+    {% endif %}
+  </main>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="/static/JS/barbero_agenda.js"></script>
+</body>
+</html>

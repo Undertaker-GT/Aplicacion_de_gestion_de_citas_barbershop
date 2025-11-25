@@ -1,0 +1,300 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nuestros Servicios</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.0/font/bootstrap-icons.css">
+    <link rel="stylesheet" href="/static/CSS/servicios.css">
+    <link rel="stylesheet" href="/static/CSS/booking.css">
+</head>
+<body>
+    <!-- Barra de navegación -->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <div class="container">
+            <a class="navbar-brand" href="{{ url_for('home') }}">BLANK concept</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav me-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ url_for('home') }}">Inicio</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link active" href="{{ url_for('servicios') }}">Servicios</a>
+                    </li>
+                    <li class="nav-item">
+                    <a class="nav-link" href="{{ url_for('ver_barberos') }}">Barberos</a>
+                </li>
+                </ul>
+                <div class="d-flex">
+                    {% if 'user_id' in session %}
+                        <div class="dropdown">
+                            <button class="btn btn-outline-light dropdown-toggle" type="button" id="dropdownMenuButton" data-bs-toggle="dropdown">
+                                Hola, {{ session.get('user_name', 'Usuario') }}
+                            </button>
+                            <ul class="dropdown-menu">
+                                {% if session.get('user_role') == 1 %}
+                                    <li><a class="dropdown-item" href="{{ url_for('admin_dashboard') }}">Panel Admin</a></li>
+                                {% elif session.get('user_role') == 2 %}
+                                    <li><a class="dropdown-item" href="{{ url_for('barber_dashboard') }}">Panel Barbero</a></li>
+                                {% endif %}
+                                <li><a class="dropdown-item" href="#">Mis citas</a></li>
+                                <li><hr class="dropdown-divider"></li>
+                                <li><a class="dropdown-item" href="{{ url_for('logout') }}">Cerrar sesión</a></li>
+                            </ul>
+                        </div>
+                    {% else %}
+                        <a href="{{ url_for('login') }}" class="btn btn-outline-light me-2">Iniciar sesión</a>
+                        <a href="{{ url_for('registro') }}" class="btn btn-success">Registrarse</a>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Encabezado de página -->
+    <section class="page-header">
+        <div class="container">
+            <h1 class="display-4">Nuestros Servicios</h1>
+            <p class="lead">Descubre todos los servicios que ofrecemos para tu estilo y cuidado personal</p>
+        </div>
+    </section>
+
+    <div class="container">
+        <!-- Pestañas de categorías -->
+        <ul class="nav nav-tabs justify-content-center" id="servicesTab" role="tablist">
+            <li class="nav-item" role="presentation">
+                <button class="nav-link active" id="all-tab" data-bs-toggle="tab" data-bs-target="#all" type="button" role="tab">Servicios</button>
+            </li>
+            <li class="nav-item" role="presentation">
+                <button class="nav-link" id="combos-tab" data-bs-toggle="tab" data-bs-target="#combos" type="button" role="tab">Combos</button>
+            </li>
+            <li class="nav-item" role="presentation">
+                <button class="nav-link" id="extras-tab" data-bs-toggle="tab" data-bs-target="#extras" type="button" role="tab">Extras</button>
+            </li>
+        </ul>
+
+        <!-- Contenido de pestañas -->
+        <div class="tab-content" id="servicesTabContent">
+            <!-- Todos los servicios -->
+            <div class="tab-pane fade show active" id="all" role="tabpanel">
+                <div class="row">
+                    {% for servicio in servicios_normales %}
+                    <div class="col-md-4 mb-4">
+                        <div class="card service-card h-100">
+                            <div class="placeholder-image">
+                                <i class="bi bi-scissors service-icon"></i>
+                            </div>
+                            <div class="card-body">
+                                <h5 class="card-title">{{ servicio.nombre }}</h5>
+                                <p class="card-text">{{ servicio.descripcion }}</p>
+                                <div class="d-flex justify-content-between align-items-center">
+                                    <span class="price-tag">Q{{ servicio.precio }}</span>
+                                        {% if 'user_id' in session %}
+                                            <a href="{{ url_for('reservar_cita', servicio_id=servicio.servicio_id) }}" class="btn btn-success">Reservar</a>
+                                        {% else %}
+                                            <a href="{{ url_for('login') }}" class="btn btn-outline-success">Reservar</a>
+                                        {% endif %}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    {% endfor %}
+                    
+                </div>
+            </div>
+            
+            <!-- Solo servicios normales -->
+            <div class="tab-pane fade" id="services" role="tabpanel">
+                <div class="row">
+                    {% for servicio in servicios_normales %}
+                    <div class="col-md-4 mb-4">
+                        <div class="card service-card h-100">
+                            <div class="placeholder-image">
+                                <i class="bi bi-scissors service-icon"></i>
+                            </div>
+                            <div class="card-body">
+                                <h5 class="card-title">{{ servicio.nombre }}</h5>
+                                <p class="card-text">{{ servicio.descripcion }}</p>
+                                <div class="d-flex justify-content-between align-items-center">
+                                    <span class="price-tag">Q{{ servicio.precio }}</span>
+                                        {% if 'user_id' in session %}
+                                            <a href="{{ url_for('reservar_cita', servicio_id=servicio.servicio_id) }}" class="btn btn-success">Reservar</a>
+                                        {% else %}
+                                            <a href="{{ url_for('login') }}" class="btn btn-outline-success">Reservar</a>
+                                        {% endif %}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    {% endfor %}
+                </div>
+            </div>
+            
+            <!-- Solo combos -->
+            <div class="tab-pane fade" id="combos" role="tabpanel">
+                <div class="row">
+                    {% for servicio in servicios_combos %}
+                    <div class="col-md-4 mb-4">
+                        <div class="card service-card h-100">
+                            <div class="placeholder-image">
+                                <i class="bi bi-collection-play service-icon"></i>
+                            </div>
+                            <div class="card-body">
+                                <h5 class="card-title">{{ servicio.nombre }}</h5>
+                                <p class="card-text">{{ servicio.descripcion }}</p>
+                                <div class="d-flex justify-content-between align-items-center">
+                                    <span class="price-tag">Q{{ servicio.precio }}</span>
+                                        {% if 'user_id' in session %}
+                                            <a href="{{ url_for('reservar_cita', servicio_id=servicio.servicio_id) }}" class="btn btn-success">Reservar</a>
+                                        {% else %}
+                                            <a href="{{ url_for('login') }}" class="btn btn-outline-success">Reservar</a>
+                                        {% endif %}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    {% endfor %}
+                </div>
+            </div>
+            
+            <!-- Solo extras -->
+            <div class="tab-pane fade" id="extras" role="tabpanel">
+                <div class="row">
+                    {% for servicio in servicios_extras %}
+                    <div class="col-md-4 mb-4">
+                        <div class="card service-card h-100">
+                            <div class="placeholder-image">
+                                <i class="bi bi-plus-circle service-icon"></i>
+                            </div>
+                            <div class="card-body">
+                                <h5 class="card-title">{{ servicio.nombre }}</h5>
+                                <p class="card-text">{{ servicio.descripcion }}</p>
+                                <div class="d-flex justify-content-between align-items-center">
+                                    <span class="price-tag">Q{{ servicio.precio }}</span>
+                                    {% if 'user_id' in session %}
+                                    {% else %}
+                                        <a href="{{ url_for('login') }}" class="btn btn-outline-success">Reservar</a>
+                                    {% endif %}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Llamado a la acción -->
+    <section class="bg-dark text-white py-5 mt-5">
+        <div class="container text-center">
+            <h2>¿Listo para tu próxima visita?</h2>
+            <p class="lead mb-4">Reserva tu cita ahora y experimenta la calidad de nuestros servicios</p>
+            {% if 'user_id' in session %}
+                <a href="#" class="btn btn-success btn-lg">Reservar cita ahora</a>
+            {% else %}
+                <a href="{{ url_for('registro') }}" class="btn btn-success btn-lg me-2">Registrarse y reservar</a>
+                <a href="{{ url_for('login') }}" class="btn btn-outline-light btn-lg">Iniciar sesión</a>
+            {% endif %}
+        </div>
+    </section>
+
+        <!-- Modal de Reserva -->
+    <div class="modal fade" id="reservaModal" tabindex="-1" aria-labelledby="reservaModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="reservaModalLabel">Reservar Cita</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form id="reservaForm">
+                        <input type="hidden" id="servicioPrincipal" name="servicio_principal">
+                        
+                        <!-- Servicios adicionales -->
+                        <div class="mb-3">
+                            <label class="form-label">Servicios adicionales (opcional)</label>
+                            <div id="serviciosAdicionales">
+                                {% for servicio in servicios_normales %}
+                                <div class="form-check">
+                                    <input class="form-check-input servicio-adicional" type="checkbox" 
+                                        value="{{ servicio.servicio_id }}" id="servicio{{ servicio.servicio_id }}">
+                                    <label class="form-check-label" for="servicio{{ servicio.servicio_id }}">
+                                        {{ servicio.nombre }} - Q{{ servicio.precio }}
+                                    </label>
+                                </div>
+                                {% endfor %}
+                            </div>
+                        </div>
+                        
+                        <!-- Extras -->
+                        <div class="mb-3">
+                            <label class="form-label">Extras (opcional)</label>
+                            <div id="serviciosExtras">
+                                {% for servicio in servicios_extras %}
+                                <div class="form-check">
+                                    <input class="form-check-input servicio-extra" type="checkbox" 
+                                        value="{{ servicio.servicio_id }}" id="extra{{ servicio.servicio_id }}">
+                                    <label class="form-check-label" for="extra{{ servicio.servicio_id }}">
+                                        {{ servicio.nombre }} - Q{{ servicio.precio }}
+                                    </label>
+                                </div>
+                                {% endfor %}
+                            </div>
+                        </div>
+                        
+                        <!-- Selección de barbero -->
+                        <div class="mb-3">
+                            <label for="barberoSelect" class="form-label">Seleccionar Barbero</label>
+                            <select class="form-select" id="barberoSelect" name="barbero_id" required>
+                                <option value="">Seleccione un barbero</option>
+                                <!-- Los barberos se cargarán dinámicamente -->
+                            </select>
+                        </div>
+                        
+                        <!-- Selección de fecha -->
+                        <div class="mb-3">
+                            <label for="fechaSelect" class="form-label">Fecha de la cita</label>
+                            <input type="date" class="form-control" id="fechaSelect" name="fecha" required>
+                        </div>
+                        
+                        <!-- Selección de hora -->
+                        <div class="mb-3">
+                            <label for="horaSelect" class="form-label">Hora de la cita</label>
+                            <select class="form-select" id="horaSelect" name="hora" required disabled>
+                                <option value="">Primero seleccione una fecha y barbero</option>
+                                <!-- Las horas disponibles se cargarán dinámicamente -->
+                            </select>
+                        </div>
+                        
+                        <div class="alert alert-info" role="alert">
+                            <strong>Horario de atención:</strong><br>
+                            Lunes a Viernes: 12:00 PM - 9:00 PM<br>
+                            Sábados: 10:00 AM - 8:00 PM<br>
+                            Domingos: 12:00 PM - 6:00 PM
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                    <button type="button" class="btn btn-primary" id="confirmarReserva">Confirmar Reserva</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <footer class="bg-dark text-white text-center py-4">
+        <div class="container">
+            <p>&copy; 2023 BLANK concept. Todos los derechos reservados.</p>
+        </div>
+    </footer>
+
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script></script>
+</body>
+</html>

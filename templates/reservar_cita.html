@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Reservar Cita - BLANK concept</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- CSS principal del proyecto -->
+    <link rel="stylesheet" href="/static/CSS/reservar_cita.css">
+    <!-- NUEVO: estilos específicos para el selector de hora en formato "chips" -->
+    <link rel="stylesheet" href="/static/CSS/reservar_cita.css"><!-- re-using same file; styles are appended in the improved CSS -->
+</head>
+<body>
+    <!-- Barra de navegación -->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <div class="container">
+            <a class="navbar-brand" href="{{ url_for('home') }}">BLANK concept</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav me-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ url_for('home') }}">Inicio</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ url_for('servicios') }}">Servicios</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link active" href="{{ url_for('reservar_cita') }}">Reservar Cita</a>
+                    </li>
+                </ul>
+                <div class="d-flex">
+                    <div class="dropdown">
+                        <button class="btn btn-outline-light dropdown-toggle" type="button" id="dropdownMenuButton" data-bs-toggle="dropdown">
+                            Hola, {{ session.get('user_name', 'Usuario') }}
+                        </button>
+                        <ul class="dropdown-menu">
+                            <li><a class="dropdown-item" href="{{ url_for('mis_citas') }}">Mis citas</a></li>
+                            <li><hr class="dropdown-divider"></li>
+                            <li><a class="dropdown-item" href="{{ url_for('logout') }}">Cerrar sesión</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container mt-4">
+        <h2 class="text-center mb-4">Reservar Cita</h2>
+        
+        <!-- Mensajes flash -->
+        {% with messages = get_flashed_messages(with_categories=true) %}
+            {% if messages %}
+                {% for category, message in messages %}
+                    <div class="alert alert-{{ category }} alert-dismissible fade show" role="alert">
+                        {{ message }}
+                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                    </div>
+                {% endfor %}
+            {% endif %}
+        {% endwith %}
+        
+        <form id="citaForm" action="{{ url_for('procesar_cita') }}" method="POST">
+            <!-- Selección de servicios -->
+            <div class="card mb-4">
+                <div class="card-header">
+                    <h4>Selecciona tus servicios</h4>
+                </div>
+                <div class="card-body">
+                    <!-- Servicios normales -->
+                    <h5 class="mb-3">Servicios</h5>
+                    <div class="row mb-4" id="servicios-normales">
+                        {% for servicio in servicios_normales %}
+                        <div class="col-md-4 mb-3">
+                            <div class="form-check">
+                                <input class="form-check-input servicio-checkbox servicio-normal" type="checkbox" name="servicios[]" 
+                                       value="{{ servicio.servicio_id }}" id="servicio{{ servicio.servicio_id }}"
+                                       data-precio="{{ servicio.precio }}" data-tipo="servicio">
+                                <label class="form-check-label" for="servicio{{ servicio.servicio_id }}">
+                                    {{ servicio.nombre }} - Q{{ servicio.precio }}
+                                </label>
+                                <small class="d-block text-muted">{{ servicio.descripcion }}</small>
+                            </div>
+                        </div>
+                        {% endfor %}
+                    </div>
+                    
+                    <!-- Combos -->
+                    <h5 class="mb-3">Combos</h5>
+                    <div class="row mb-4" id="servicios-combos">
+                        {% for servicio in servicios_combos %}
+                        <div class="col-md-4 mb-3">
+                            <div class="form-check">
+                                <input class="form-check-input servicio-checkbox servicio-combo" type="checkbox" name="servicios[]" 
+                                       value="{{ servicio.servicio_id }}" id="servicio{{ servicio.servicio_id }}"
+                                       data-precio="{{ servicio.precio }}" data-tipo="combo">
+                                <label class="form-check-label" for="servicio{{ servicio.servicio_id }}">
+                                    {{ servicio.nombre }} - Q{{ servicio.precio }}
+                                </label>
+                                <small class="d-block text-muted">{{ servicio.descripcion }}</small>
+                            </div>
+                        </div>
+                        {% endfor %}
+                    </div>
+                    
+                    <!-- Extras -->
+                    <h5 class="mb-3">Extras</h5>
+                    <div class="alert alert-info" id="extra-alert" style="display: none;">
+                        <i class="bi bi-info-circle"></i> Los extras solo pueden seleccionarse si ya has elegido al menos un servicio o combo.
+                    </div>
+                    <div class="row mb-4" id="servicios-extras">
+                        {% for servicio in servicios_extras %}
+                        <div class="col-md-4 mb-3">
+                            <div class="form-check">
+                                <input class="form-check-input servicio-checkbox servicio-extra" type="checkbox" name="servicios[]" 
+                                       value="{{ servicio.servicio_id }}" id="servicio{{ servicio.servicio_id }}"
+                                       data-precio="{{ servicio.precio }}" data-tipo="extra" disabled>
+                                <label class="form-check-label extra-disabled" for="servicio{{ servicio.servicio_id }}">
+                                    {{ servicio.nombre }} - Q{{ servicio.precio }}
+                                </label>
+                                <small class="d-block text-muted">{{ servicio.descripcion }}</small>
+                            </div>
+                        </div>
+                        {% endfor %}
+                    </div>
+                    
+                    <div class="d-flex justify-content-between align-items-center mt-3">
+                        <div>
+                            <strong>Total seleccionado: </strong>
+                            <span id="totalSeleccionado">Q0.00</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Selección de barbero, fecha y hora -->
+            <div class="card mb-4">
+                <div class="card-header d-flex align-items-center justify-content-between gap-3 flex-wrap">
+                    <h4 class="m-0">Selecciona barbero, fecha y hora</h4>
+                </div>
+                <div class="card-body">
+                    <div class="row">
+                        <div class="mb-3">
+                            <label class="form-label">Barbero</label>
+                            <div class="row">
+                                {% for barbero in barberos %}
+                                <label class="col-md-4 mb-3">
+                                    <input type="radio" name="barbero_id" value="{{ barbero.barbero_id }}" class="d-none barbero-radio" required>
+                                    <div class="card h-100 text-center barbero-card" style="cursor: pointer;">
+                                        <img src="{{ url_for('static', filename='uploads/barberos/' ~ barbero.foto_perfil) if barbero.foto_perfil else url_for('static', filename='img/default-barber.png') }}" 
+                                            class="card-img-top rounded-circle mx-auto mt-3" 
+                                            alt="Foto de {{ barbero.nombre }}" 
+                                            style="width:120px; height:120px; object-fit:cover;">
+                                        <div class="card-body">
+                                            <h5 class="card-title">{{ barbero.nombre }} {{ barbero.apellido }}</h5>
+                                        </div>
+                                    </div>
+                                </label>
+                                {% endfor %}
+                            </div>
+                        </div>
+
+                        <div class="col-md-4 mb-3">
+                            <label for="fechaSelect" class="form-label">Fecha</label>
+                            <input type="date" class="form-control" id="fechaSelect" name="fecha" min="{{ min_date }}" required>
+                        </div>
+                        
+                        <!-- INPUT SELECT original queda oculto como respaldo -->
+                        <div class="col-md-4 mb-3 d-none">
+                            <label for="horaSelect" class="form-label">Hora (fallback)</label>
+                            <select class="form-select" id="horaSelect" name="hora" disabled>
+                                <option value="">Primero selecciona barbero y fecha</option>
+                            </select>
+                        </div>
+
+                        <!-- NUEVO: selector de slots -->
+                        <div class="col-md-8 mb-3">
+                            <label class="form-label">Hora</label>
+                            <input type="hidden" id="horaHidden" name="hora" required>
+                            <div id="slotsContainer" class="slots-container border rounded-3 p-3">
+                                <div class="slots-empty d-flex align-items-center justify-content-center py-5 text-muted">
+                                    <div class="text-center">
+                                        <div class="spinner-border mb-2 d-none" id="slotsLoading" role="status" aria-hidden="true"></div>
+                                        <p id="slotsMessage" class="m-0">Selecciona barbero y fecha para ver horarios disponibles.</p>
+                                    </div>
+                                </div>
+                                <div id="slotsGrid" class="slots-grid d-none" role="listbox" aria-label="Horarios disponibles"></div>
+                            </div>
+                            <div id="cerradoAlert" class="alert alert-warning mt-3 d-none" role="alert">
+                                La barbería estará cerrada este día.
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="d-grid gap-2">
+                <button type="submit" class="btn btn-primary btn-lg" id="btnReservar" disabled>Reservar Cita</button>
+            </div>
+        </form>
+    </div>
+
+    <footer class="bg-dark text-white text-center py-4 mt-5">
+        <div class="container">
+            <p>&copy; 2025 BLANK concept. Todos los derechos reservados.</p>
+        </div>
+    </footer>
+
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <!-- JS mejorado para cargar y seleccionar slots -->
+    <script>
+        window.SERVICIO_INICIAL_ID = "{{ servicio_inicial_id or '' }}";
+        window.BARBERO_INICIAL_ID  = "{{ barbero_inicial_id or '' }}";
+    </script>
+    <script src="/static/JS/reservar_cita.js"></script>
+</body>
+</html>

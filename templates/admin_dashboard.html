@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Panel de Administrador - BLANK concept</title>
+
+  <!-- Bootstrap 5 -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+
+  <!-- Bootstrap Icons (para los íconos de las tarjetas) -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css" rel="stylesheet">
+
+  <!-- Tu CSS -->
+  <link rel="stylesheet" href="/static/CSS/adminD.css">
+</head>
+<body class="admin-theme">
+
+  <!-- Topbar / Navbar -->
+  <nav class="navbar navbar-expand-lg admin-navbar">
+    <div class="container">
+      <a class="navbar-brand d-flex align-items-center gap-2" href="#">
+        <span class="brand-mark">BC</span>
+        <span class="fw-semibold">BLANK concept</span>
+        <span class="brand-dot">•</span>
+        <span class="text-muted small">Panel de Administración</span>
+      </a>
+      <div class="ms-auto d-flex align-items-center gap-3">
+        <span class="role-badge"><i class="bi bi-shield-lock-fill me-1"></i>Administrador</span>
+        <a href="{{ url_for('logout') }}" class="btn btn-outline-light btn-sm">
+          <i class="bi bi-box-arrow-right me-1"></i> Cerrar sesión
+        </a>
+      </div>
+    </div>
+    <div class="barber-stripe" aria-hidden="true"></div>
+  </nav>
+
+  <!-- Hero / bienvenida -->
+  <header class="hero container">
+    <div class="hero-card">
+      <div class="d-flex align-items-center justify-content-between flex-wrap gap-3">
+        <div>
+          <h1 class="hero-title">Hola, Administrador</h1>
+          <p class="hero-sub">Bienvenido al tablero de control de la barbería. Desde aquí puedes gestionar todos los aspectos del sistema.</p>
+        </div>
+        <div class="hero-stamp">
+          <i class="bi bi-scissors"></i>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- Acciones principales -->
+  <main class="container my-4">
+    <div class="row g-4">
+      <!-- Servicios -->
+      <div class="col-12 col-md-6 col-lg-3">
+        <div class="admin-card h-100">
+          <div class="admin-card-icon">
+            <i class="bi bi-basket2"></i>
+          </div>
+          <h5 class="admin-card-title">Servicios</h5>
+          <p class="admin-card-text">Gestiona los servicios ofrecidos.</p>
+          <a href="{{ url_for('admin_servicios') }}" class="btn btn-admin w-100">
+            <i class="bi bi-sliders me-1"></i> Administrar
+          </a>
+        </div>
+      </div>
+
+      <!-- Barberos -->
+      <div class="col-12 col-md-6 col-lg-3">
+        <div class="admin-card h-100">
+          <div class="admin-card-icon">
+            <i class="bi bi-person-badge"></i>
+          </div>
+          <h5 class="admin-card-title">Barberos</h5>
+          <p class="admin-card-text">Gestiona el personal de barberos.</p>
+          <a href="{{ url_for('listar_barberos') }}" class="btn btn-admin w-100">
+            <i class="bi bi-people me-1"></i> Ver Barberos
+          </a>
+        </div>
+      </div>
+
+      <!-- Citas -->
+      <div class="col-12 col-md-6 col-lg-3">
+        <div class="admin-card h-100">
+          <div class="admin-card-icon">
+            <i class="bi bi-calendar2-check"></i>
+          </div>
+          <h5 class="admin-card-title">Citas</h5>
+          <p class="admin-card-text">Revisa y gestiona todas las citas.</p>
+          <a href="{{ url_for('admin_citas') }}" class="btn btn-admin w-100">
+            <i class="bi bi-journal-text me-1"></i> Ver citas
+          </a>
+        </div>
+      </div>
+
+      <!-- Horarios -->
+      <div class="col-12 col-md-6 col-lg-3">
+        <div class="admin-card h-100">
+          <div class="admin-card-icon">
+            <i class="bi bi-alarm"></i>
+          </div>
+          <h5 class="admin-card-title">Horarios</h5>
+          <p class="admin-card-text">Gestiona días festivos o cambios de horario.</p>
+          <a href="{{ url_for('admin_horarios') }}" class="btn btn-admin w-100">
+            <i class="bi bi-clock-history me-1"></i> Administrar
+          </a>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <!-- Footer sutil -->
+  <footer class="container py-4">
+    <p class="text-center text-muted m-0 small">© {{ 2025 }} BLANK concept · BarberShop Admin</p>
+  </footer>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

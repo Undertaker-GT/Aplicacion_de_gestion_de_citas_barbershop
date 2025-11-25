@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <title>Citas - Panel Admin</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <!-- Bootstrap -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" />
+  <!-- Estilos exclusivos de Citas -->
+  <link rel="stylesheet" href="/static/CSS/admin_citas.css">
+</head>
+<body class="admin-theme admin-citas">
+  <div class="container py-4">
+    <h1 class="mb-3">Todas las citas</h1>
+
+    <!-- Filtros -->
+    <form class="filter-bar row gy-2 gx-3 align-items-end mb-3" method="get" action="{{ url_for('admin_citas') }}">
+      <div class="col-6 col-md-3">
+        <label class="form-label">Fecha inicio</label>
+        <input type="date" class="form-control" name="fecha_inicio" value="{{ filtros.fecha_inicio }}">
+      </div>
+      <div class="col-6 col-md-3">
+        <label class="form-label">Fecha fin</label>
+        <input type="date" class="form-control" name="fecha_fin" value="{{ filtros.fecha_fin }}">
+      </div>
+      <div class="col-6 col-md-3">
+        <label class="form-label">Estado</label>
+        <select class="form-select" name="estado">
+          {% set estados = ['todos','pendiente','confirmada','completada','cancelada','no asistio'] %}
+          {% for e in estados %}
+            <option value="{{ e }}" {{ 'selected' if filtros.estado==e else '' }}>{{ e|capitalize }}</option>
+          {% endfor %}
+        </select>
+      </div>
+      <div class="col-6 col-md-3">
+        <label class="form-label">Barbero</label>
+        <select class="form-select" name="barbero_id">
+          <option value="" {{ 'selected' if not filtros.barbero_id else '' }}>Todos</option>
+          {% for b in barberos %}
+            <option value="{{ b.barbero_id }}" {{ 'selected' if filtros.barbero_id|string == b.barbero_id|string else '' }}>
+              {{ b.nombre }} {{ b.apellido }}
+            </option>
+          {% endfor %}
+        </select>
+      </div>
+
+      <!-- Botones arriba (corrección solicitada) -->
+      <div class="col-12 d-flex gap-2 align-items-center">
+        <button class="btn btn-primary" type="submit">Aplicar filtros</button>
+        <a class="btn btn-outline-secondary" href="{{ url_for('admin_citas') }}">Limpiar</a>
+
+        <!-- a la derecha -->
+        <a class="btn btn-outline-dark ms-auto" href="{{ url_for('admin_dashboard') }}">Volver al panel</a>
+        <a class="btn btn-success"
+           href="{{ url_for('admin_citas_exportar',
+                            fecha_inicio=filtros.fecha_inicio,
+                            fecha_fin=filtros.fecha_fin,
+                            estado=filtros.estado,
+                            barbero_id=filtros.barbero_id) }}">
+          Exportar CSV
+        </a>
+      </div>
+    </form>
+
+    <!-- Tabla -->
+    <div class="card">
+      <div class="card-body table-responsive">
+        <table class="table table-hover table-striped align-middle">
+          <thead>
+            <tr>
+              <th>Fecha</th>
+              <th>Hora</th>
+              <th>Cliente</th>
+              <th>Barbero</th>
+              <th>Servicios</th>
+              <th>Estado</th>
+              <th>Cancelación</th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for c in citas %}
+            <tr>
+              <td>{{ c.fecha }}</td>
+              <td>{{ c.hora }}</td>
+              <td>{{ c.cliente_nombre }} {{ c.cliente_apellido }}</td>
+              <td>{{ c.barbero_nombre }} {{ c.barbero_apellido }}</td>
+              <td style="max-width:320px">{{ c.servicios or '-' }}</td>
+              <td>
+                <span class="chip {{ (c.estado or '')|replace(' ', '-') }}">
+                  {{ (c.estado or '')|capitalize }}
+                </span>
+              </td>
+              <td>
+                {% if c.estado == 'cancelada' %}
+                  <small class="text-danger d-block">{{ c.motivo_cancelacion or '—' }}</small>
+                  <small class="text-muted d-block">{{ c.fecha_cancelacion or '' }}</small>
+                  <span class="badge rounded-pill bg-secondary mt-1">
+                    {{ (c.cancelado_por or 'desconocido')|capitalize }}
+                  </span>
+                {% else %}
+                  —
+                {% endif %}
+              </td>
+            </tr>
+            {% endfor %}
+            {% if not citas %}
+            <tr><td colspan="7" class="text-center text-muted py-4">No hay resultados.</td></tr>
+            {% endif %}
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</body>
+</html>

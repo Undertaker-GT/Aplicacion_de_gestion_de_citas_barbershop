@@ -1,0 +1,251 @@
+/* login.css - Estilos para páginas de autenticación - VERSIÓN CORREGIDA */
+
+:root {
+    --color-primary: #1a1a1a;
+    --color-secondary: #d4af37;
+    --color-accent: #8b4513;
+    --color-light: #ffffff; /* Cambiado a blanco puro para mejor contraste */
+    --color-dark: #121212;
+    --color-gray: #2d2d2d;
+    --color-gray-light: #3d3d3d;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background: linear-gradient(135deg, var(--color-dark) 0%, var(--color-primary) 100%);
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 1rem;
+    color: var(--color-light); /* Aseguramos que todo el texto sea blanco */
+}
+
+/* Contenedor principal */
+.login-container {
+    background: linear-gradient(135deg, var(--color-gray) 0%, var(--color-primary) 100%);
+    padding: 3rem;
+    border-radius: 20px;
+    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.5);
+    border: 1px solid rgba(212, 175, 55, 0.3);
+    width: 100%;
+    max-width: 500px;
+    position: relative;
+    overflow: hidden;
+}
+
+.login-container::before {
+    position: absolute;
+    top: -20px;
+    right: -20px;
+    font-size: 8rem;
+    opacity: 0.05;
+    transform: rotate(15deg);
+}
+
+/* Títulos */
+.login-container h1 {
+    font-family: 'Georgia', serif;
+    color: var(--color-secondary);
+    text-align: center;
+    font-size: 2.5rem;
+    margin-bottom: 0.5rem;
+    font-weight: bold;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+}
+
+.login-container h2 {
+    color: var(--color-light); /* Blanco para mejor contraste */
+    text-align: center;
+    font-size: 1.5rem;
+    margin-bottom: 2rem;
+    font-weight: 400; /* Un poco más grueso para mejor legibilidad */
+    letter-spacing: 1px;
+}
+
+/* Texto de navegación - AHORA EN BLANCO */
+.login-container > p {
+    color: var(--color-light); /* Blanco para todo el texto */
+    text-align: center;
+    margin-bottom: 1.5rem;
+    font-weight: 400;
+}
+
+.login-container > p:first-of-type {
+    margin-bottom: 2rem;
+}
+
+/* Enlaces */
+.login-container a {
+    color: var(--color-secondary);
+    text-decoration: none;
+    font-weight: 500;
+    transition: all 0.3s ease;
+}
+
+.login-container a:hover {
+    color: #ffd700; /* Dorado más brillante en hover */
+    text-decoration: underline;
+}
+
+/* Labels de los inputs - MEJOR CONTRASTE */
+.input-group label {
+    display: block;
+    margin-bottom: 0.5rem;
+    color: var(--color-light); /* Blanco puro */
+    font-weight: 600; /* Más grueso para mejor legibilidad */
+    font-size: 1rem;
+}
+
+/* Inputs */
+.input-group input {
+    width: 100%;
+    padding: 1rem 1.5rem;
+    background: rgba(255, 255, 255, 0.1);
+    border: 2px solid rgba(255, 255, 255, 0.3); /* Borde más visible */
+    border-radius: 10px;
+    color: var(--color-light); /* Texto en blanco */
+    font-size: 1rem;
+    transition: all 0.3s ease;
+    backdrop-filter: blur(10px);
+}
+
+.input-group input::placeholder {
+    color: rgba(255, 255, 255, 0.7); /* Placeholder más visible */
+}
+
+.input-group input:focus {
+    outline: none;
+    border-color: var(--color-secondary);
+    background: rgba(255, 255, 255, 0.15);
+    box-shadow: 0 0 0 3px rgba(212, 175, 55, 0.3);
+}
+
+/* Texto de ayuda - MÁS VISIBLE */
+.input-group small {
+    display: block;
+    margin-top: 0.5rem;
+    color: rgba(255, 255, 255, 0.9); /* Mucho más visible */
+    font-size: 0.85rem;
+    font-weight: 400;
+}
+
+/* Botón */
+button[type="submit"] {
+    width: 100%;
+    padding: 1rem 2rem;
+    background: linear-gradient(45deg, var(--color-secondary), #b8941f);
+    color: #000000; /* Texto negro para contraste con fondo dorado */
+    border: none;
+    border-radius: 10px;
+    font-size: 1.1rem;
+    font-weight: 700; /* Más grueso */
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    margin-top: 1rem;
+    text-shadow: none;
+}
+
+button[type="submit"]:hover {
+    background: linear-gradient(45deg, #ffd700, var(--color-secondary));
+    transform: translateY(-2px);
+    box-shadow: 0 8px 20px rgba(212, 175, 55, 0.4);
+    color: #000000;
+}
+
+/* Enlaces al final del formulario */
+.login-container > p:last-of-type {
+    text-align: center;
+    margin-top: 2rem;
+    color: var(--color-light); /* Blanco garantizado */
+    font-weight: 400;
+}
+
+/* Alertas personalizadas - TEXTO MÁS LEGIBLE */
+.alert {
+    border: none;
+    border-radius: 10px;
+    padding: 1rem 1.5rem;
+    margin-bottom: 1.5rem;
+    font-weight: 500;
+    color: var(--color-light); /* Texto blanco en alertas */
+}
+
+.alert-success {
+    background: rgba(40, 167, 69, 0.3);
+    border-left: 4px solid #28a745;
+}
+
+.alert-danger {
+    background: rgba(220, 53, 69, 0.3);
+    border-left: 4px solid #dc3545;
+}
+
+.alert-warning {
+    background: rgba(255, 193, 7, 0.3);
+    border-left: 4px solid #ffc107;
+}
+
+.alert-info {
+    background: rgba(23, 162, 184, 0.3);
+    border-left: 4px solid #17a2b8;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .login-container {
+        padding: 2rem 1.5rem;
+        margin: 1rem;
+    }
+    
+    .login-container h1 {
+        font-size: 2rem;
+    }
+    
+    .login-container h2 {
+        font-size: 1.3rem;
+    }
+    
+    .input-group input {
+        padding: 0.875rem 1.25rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .login-container {
+        padding: 1.5rem 1rem;
+    }
+    
+    .login-container h1 {
+        font-size: 1.8rem;
+    }
+    
+    button[type="submit"] {
+        padding: 0.875rem 1.5rem;
+        font-size: 1rem;
+    }
+}
+
+/* Animación de entrada */
+.login-container {
+    animation: slideUp 0.6s ease-out;
+}
+
+@keyframes slideUp {
+    from {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}

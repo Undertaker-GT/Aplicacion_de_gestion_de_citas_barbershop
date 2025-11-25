@@ -1,0 +1,224 @@
+/* ======= Base del tema (igual al resto del admin) ======= */
+:root{
+  --admin-bg:#0f1216;
+  --surface-1:rgba(255,255,255,.04);
+  --surface-2:rgba(255,255,255,.08);
+  --stroke-1:rgba(255,255,255,.12);
+  --text-1:#eef2f7;
+  --text-2:#aab3c2;
+  --brand:#d4af37; --brand-2:#f5d56b;
+  --focus:#89b4ff;
+  --shadow-lg:0 10px 30px rgba(0,0,0,.35);
+  --radius-xl:18px; --radius-lg:12px;
+}
+
+.admin-citas{
+  background:
+    radial-gradient(1200px 600px at 80% -100px, rgba(212,175,55,.08), transparent) no-repeat,
+    radial-gradient(800px 400px at -20% 120%, rgba(212,175,55,.06), transparent) no-repeat,
+    var(--admin-bg);
+  color:var(--text-1);
+}
+
+/* ======= Título ======= */
+.admin-citas h1{
+  font-weight:800;
+  margin-bottom: 1rem;
+}
+
+/* ======= Barra de filtros ======= */
+.filter-bar{
+  background: var(--surface-1);
+  border: 1px solid var(--stroke-1);
+  border-radius: var(--radius-xl);
+  padding: 12px;
+  box-shadow: var(--shadow-lg);
+}
+.filter-bar .form-label{ color: var(--text-2); font-weight: 600; }
+.filter-bar .form-control,
+.filter-bar .form-select{
+  background: rgba(255,255,255,.06);
+  border: 1px solid var(--stroke-1);
+  color: var(--text-1);
+  border-radius: var(--radius-lg);
+  color-scheme: dark; caret-color: var(--text-1);
+}
+.filter-bar .form-control:focus,
+.filter-bar .form-select:focus{
+  background: rgba(255,255,255,.08);
+  border-color: rgba(212,175,55,.55);
+  box-shadow: 0 0 0 4px rgba(137,180,255,.15);
+}
+
+/* Botones coherentes */
+.admin-citas .btn-primary{
+  background: linear-gradient(135deg,var(--brand),var(--brand-2));
+  border: none; color:#1b1f25; font-weight:700; border-radius:12px;
+}
+.admin-citas .btn-outline-secondary{
+  border-color: var(--stroke-1); color: var(--text-1);
+}
+.admin-citas .btn-outline-secondary:hover{ background: var(--surface-2); }
+.admin-citas .btn-success{
+  background: linear-gradient(135deg,#22c55e,#4ade80);
+  border: none; font-weight:700; border-radius:12px;
+}
+
+/* ======= Tarjeta/tabla ======= */
+.admin-citas .card{ background: var(--surface-1); border:1px solid var(--stroke-1); border-radius:16px; box-shadow:var(--shadow-lg); }
+.admin-citas .table-responsive{ border-radius:16px; }
+
+.admin-citas table{ margin:0; }
+.admin-citas table thead th{
+  position: sticky; top: 0; z-index: 5;
+  background: linear-gradient(180deg, rgba(255,255,255,.06), rgba(255,255,255,.03)) !important;
+  color: var(--text-1); font-weight:700; border-bottom:1px solid var(--stroke-1) !important;
+}
+.admin-citas table td, 
+.admin-citas table th{ border-color: var(--stroke-1) !important; }
+
+.admin-citas .table-hover>tbody>tr:hover>*{
+  background-color: rgba(255,255,255,.06) !important;
+}
+
+/* Truncado suave para la columna de servicios (si viene con max-width inline) */
+.admin-citas td[style*="max-width"]{
+  white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+}
+
+/* ======= Chips de estado ======= */
+.admin-citas .chip{
+  display:inline-block;
+  padding:.28rem .6rem;
+  border-radius:999px;
+  font-weight:700; font-size:.82rem;
+  border:1px solid transparent;
+}
+
+/* estados */
+.admin-citas .chip.pendiente   { background:rgba(245,158,11,.20); border-color:rgba(245,158,11,.55); color:#ffe3b3; }
+.admin-citas .chip.confirmada  { background:rgba(59,130,246,.18);  border-color:rgba(59,130,246,.50); color:#cfe0ff; }
+.admin-citas .chip.completada  { background:rgba(34,197,94,.20);   border-color:rgba(34,197,94,.55);  color:#c9f7d9; }
+.admin-citas .chip.cancelada   { background:rgba(239,68,68,.22);   border-color:rgba(239,68,68,.60);  color:#ffd1d1; }
+.admin-citas .chip.no-asistio  { background:rgba(148,163,184,.22); border-color:rgba(148,163,184,.45); color:#e5eaf1; }
+
+/* Cancelación (motivo/fecha/quién) */
+.admin-citas td small.text-danger{ color:#ffb4b4 !important; }
+.admin-citas td small.text-muted { color:var(--text-2) !important; }
+.admin-citas td .badge.bg-secondary{
+  background: rgba(255,255,255,.08) !important;
+  color: var(--text-1);
+  border:1px solid var(--stroke-1);
+}
+
+/* ======= Volver al panel ======= */
+.admin-citas .btn-outline-dark{
+  border-color: var(--stroke-1);
+  color: var(--text-1);
+}
+.admin-citas .btn-outline-dark:hover{ background: var(--surface-2); }
+
+/* ======= Accesibilidad / estados de input universales ======= */
+.admin-citas input, .admin-citas select{
+  color: var(--text-1); background: rgba(255,255,255,.06);
+}
+.admin-citas input:focus, .admin-citas select:focus{
+  color: var(--text-1); background: rgba(255,255,255,.08);
+}
+.admin-citas input[type="date"], .admin-citas select { color-scheme: dark; }
+
+/* ======= Responsive: simplifica en móviles ======= */
+@media (max-width: 768px){
+  /* oculta columnas menos críticas: Barbero y Cancelación */
+  .admin-citas table thead th:nth-child(4),
+  .admin-citas table tbody td:nth-child(4),
+  .admin-citas table thead th:nth-child(7),
+  .admin-citas table tbody td:nth-child(7){ display:none; }
+
+  .filter-bar{ padding:10px; }
+}
+/* --- Tabla dark: sin fondos blancos de Bootstrap --- */
+.admin-citas .table {
+  --bs-table-color: var(--text-1);
+  --bs-table-bg: transparent;
+  --bs-table-striped-bg: rgba(255,255,255,.04);
+  --bs-table-hover-bg: rgba(255,255,255,.08);
+  --bs-border-color: var(--stroke-1);
+  color: var(--text-1);
+}
+
+.admin-citas .table,
+.admin-citas .table > :not(caption) > * > * {
+  background-color: transparent !important;
+}
+
+.admin-citas .table-striped > tbody > tr:nth-of-type(odd) > * {
+  background-color: rgba(255,255,255,.04) !important;
+}
+.admin-citas .table-hover > tbody > tr:hover > * {
+  background-color: rgba(255,255,255,.08) !important;
+}
+
+.admin-citas .table thead th{
+  position: sticky; top: 0; z-index: 5;
+  background: linear-gradient(180deg, rgba(255,255,255,.06), rgba(255,255,255,.03)) !important;
+  color: var(--text-1) !important;
+  border-bottom: 1px solid var(--stroke-1) !important;
+}
+
+.admin-citas .card         { background: var(--surface-1); border:1px solid var(--stroke-1); }
+.admin-citas .table-responsive { background: transparent; border-radius: 16px; }
+/* ========== 1) SELECT oscuro (control + lista de opciones) ========== */
+.admin-citas .form-select{
+  color: var(--text-1) !important;
+  background-color: rgba(255,255,255,.06);
+  border: 1px solid var(--stroke-1);
+  border-radius: 12px;
+  color-scheme: dark;            /* spinners/popup oscuros */
+}
+.admin-citas .form-select:focus{
+  background-color: rgba(255,255,255,.08);
+  border-color: rgba(212,175,55,.55);
+  box-shadow: 0 0 0 4px rgba(137,180,255,.15);
+}
+/* popup de opciones */
+.admin-citas .form-select option,
+select option{
+  background-color: #14191f;     /* lista oscura */
+  color: #e9eef6;
+}
+.admin-citas .form-select option:checked{
+  background-color: rgba(212,175,55,.28) !important; /* selección dorada */
+  color: #fff !important;
+}
+.admin-citas .form-select option:disabled{
+  color: rgba(255,255,255,.45) !important;
+}
+
+/* ========== 2) TABLA sin filas pálidas ========== */
+/* Quita zebra blanco y deja todas las filas con el mismo fondo */
+.admin-citas .table,
+.admin-citas .table > :not(caption) > * > *{
+  background-color: transparent !important;
+  color: var(--text-1);
+}
+.admin-citas .table-striped > tbody > tr:nth-of-type(odd) > *{
+  background-color: transparent !important;   /* adiós zebra */
+}
+/* Hover claro pero legible */
+.admin-citas .table-hover > tbody > tr:hover > *{
+  background-color: rgba(255,255,255,.06) !important;
+}
+/* Encabezado y bordes consistentes */
+.admin-citas .table thead th{
+  position: sticky; top: 0; z-index: 5;
+  background: linear-gradient(180deg, rgba(255,255,255,.06), rgba(255,255,255,.03)) !important;
+  color: var(--text-1) !important;
+  border-bottom: 1px solid var(--stroke-1) !important;
+}
+.admin-citas .table td, .admin-citas .table th{
+  border-color: var(--stroke-1) !important;
+}
+
+/* (extra) textos tenues más legibles en dark */
+.admin-citas .text-muted{ color: var(--text-2) !important; }

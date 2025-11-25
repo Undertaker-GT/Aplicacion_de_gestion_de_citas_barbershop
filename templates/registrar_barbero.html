@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Registrar Barbero - BLANK concept</title>
+
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css" rel="stylesheet">
+  <!-- Reutiliza el mismo CSS de formularios -->
+  <link rel="stylesheet" href="/static/CSS/admin_servicio.css">
+</head>
+<body class="admin-theme">
+
+  <!-- Navbar -->
+  <nav class="navbar navbar-expand-lg admin-navbar">
+    <div class="container">
+      <a class="navbar-brand d-flex align-items-center gap-2" href="{{ url_for('listar_barberos') }}">
+        <span class="brand-mark">BC</span>
+        <span class="fw-semibold">BLANK concept</span>
+        <span class="brand-dot">•</span>
+        <span class="small admin-subtitle">Registrar Barbero</span>
+      </a>
+      <div class="ms-auto">
+        <a href="{{ url_for('logout') }}" class="btn btn-outline-light btn-sm">
+          <i class="bi bi-box-arrow-right me-1"></i> Cerrar sesión
+        </a>
+      </div>
+    </div>
+    <div class="barber-stripe" aria-hidden="true"></div>
+  </nav>
+
+  <!-- Hero -->
+  <header class="container mt-4">
+    <div class="hero-card">
+      <div class="d-flex align-items-center justify-content-between flex-wrap gap-3">
+        <div>
+          <h1 class="hero-title">Registrar Nuevo Barbero</h1>
+          <p class="hero-sub">Completa la información. Se asignará una contraseña temporal automáticamente.</p>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- Formulario -->
+  <main class="container my-4">
+    <div class="form-card">
+      <form method="POST" action="{{ url_for('registrar_barbero') }}">
+        <div class="row g-3">
+          <div class="col-md-6">
+            <label for="nombre" class="form-label">Nombre*</label>
+            <div class="input-icon">
+              <i class="bi bi-person"></i>
+              <input type="text" class="form-control" id="nombre" name="nombre" required>
+            </div>
+          </div>
+          <div class="col-md-6">
+            <label for="segundo_nombre" class="form-label">Segundo Nombre*</label>
+            <div class="input-icon">
+              <i class="bi bi-person"></i>
+              <input type="text" class="form-control" id="segundo_nombre" name="segundo_nombre" required>
+            </div>
+          </div>
+
+          <div class="col-md-6">
+            <label for="apellido" class="form-label">Apellido*</label>
+            <div class="input-icon">
+              <i class="bi bi-person"></i>
+              <input type="text" class="form-control" id="apellido" name="apellido" required>
+            </div>
+          </div>
+          <div class="col-md-6">
+            <label for="segundo_apellido" class="form-label">Segundo Apellido*</label>
+            <div class="input-icon">
+              <i class="bi bi-person"></i>
+              <input type="text" class="form-control" id="segundo_apellido" name="segundo_apellido" required>
+            </div>
+          </div>
+
+          <div class="col-md-6">
+            <label for="email" class="form-label">Email*</label>
+            <div class="input-icon">
+              <i class="bi bi-envelope"></i>
+              <input type="email" class="form-control" id="email" name="email" placeholder="barbero@ejemplo.com" required>
+            </div>
+          </div>
+          <div class="col-md-6">
+            <label for="telefono" class="form-label">Teléfono</label>
+            <div class="input-icon">
+              <i class="bi bi-telephone"></i>
+              <input type="text" class="form-control" id="telefono" name="telefono"
+                     inputmode="numeric" pattern="[0-9]{8}" maxlength="8" placeholder="12345678">
+            </div>
+            <div class="form-hint">8 dígitos, solo números.</div>
+          </div>
+
+          <div class="col-md-6">
+            <label for="fecha_contratacion" class="form-label">Fecha de Contratación*</label>
+            <div class="input-icon">
+              <i class="bi bi-calendar-event"></i>
+              <input type="date" class="form-control" id="fecha_contratacion" name="fecha_contratacion" required>
+            </div>
+          </div>
+        </div>
+
+        <!-- Aviso de contraseña temporal -->
+        <div class="callout-info mt-4">
+          <div class="d-flex align-items-start gap-3">
+            <div class="callout-icon"><i class="bi bi-shield-lock"></i></div>
+            <div>
+              <div class="fw-semibold mb-1">Contraseña temporal</div>
+              <div>Se asignará automáticamente: <strong>123456</strong></div>
+              <div class="text-muted">El barbero podrá cambiarla después de iniciar sesión por primera vez.</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="d-flex justify-content-end gap-2 mt-4">
+          <a href="{{ url_for('listar_barberos') }}" class="btn btn-ghost">Cancelar</a>
+          <button type="submit" class="btn btn-admin">
+            <i class="bi bi-person-plus me-1"></i> Registrar Barbero
+          </button>
+        </div>
+      </form>
+    </div>
+  </main>
+
+  <footer class="container py-4">
+    <p class="text-center text-muted m-0 small">© {{ 2025 }} BLANK concept · BarberShop Admin</p>
+  </footer>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+  <script>
+    // Evita scroll en date y filtra teléfono a dígitos
+    document.getElementById('fecha_contratacion')?.addEventListener('wheel', e => e.target.blur(), {passive:true});
+    const tel = document.getElementById('telefono');
+    if (tel) tel.addEventListener('input', e => e.target.value = e.target.value.replace(/\D/g,'').slice(0,8));
+  </script>
+</body>
+</html>

@@ -1,0 +1,653 @@
+/* Estilos para la barra de navegación - BLANK concept */
+
+.navbar {
+    background: linear-gradient(135deg, var(--color-dark) 0%, var(--color-primary) 100%) !important;
+    border-bottom: 3px solid var(--color-secondary);
+    padding: 1rem 0;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+    position: relative;
+    z-index: 1000;
+}
+
+.navbar-brand {
+    font-family: 'Georgia', serif;
+    font-weight: bold;
+    color: var(--color-secondary) !important;
+    font-size: 2rem !important;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+    transition: all 0.3s ease;
+    padding: 0.5rem 0;
+}
+
+.navbar-brand:hover {
+    color: #ffd700 !important;
+    transform: scale(1.05);
+}
+
+.navbar-nav .nav-link {
+    color: var(--color-light) !important;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    padding: 0.75rem 1.5rem !important;
+    margin: 0 0.25rem;
+    border-radius: 25px;
+    transition: all 0.3s ease;
+    position: relative;
+    font-size: 0.95rem;
+}
+
+.navbar-nav .nav-link:hover {
+    color: var(--color-secondary) !important;
+    background: rgba(212, 175, 55, 0.1);
+    transform: translateY(-2px);
+}
+
+.navbar-nav .nav-link.active {
+    color: var(--color-secondary) !important;
+    background: rgba(212, 175, 55, 0.15);
+    font-weight: 700;
+}
+
+.navbar-nav .nav-link.active::after {
+    content: '';
+    position: absolute;
+    bottom: -3px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 30px;
+    height: 2px;
+    background: var(--color-secondary);
+    border-radius: 2px;
+}
+
+/* Botones de la navbar */
+.navbar .btn {
+    border-radius: 25px;
+    padding: 0.75rem 1.5rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    transition: all 0.3s ease;
+    border: 2px solid;
+    margin-left: 0.5rem;
+}
+
+.btn-outline-light {
+    color: var(--color-light) !important;
+    border-color: var(--color-light);
+    background: transparent;
+}
+
+.btn-outline-light:hover {
+    background: var(--color-light);
+    color: var(--color-dark) !important;
+    transform: scale(1.05);
+}
+
+.btn-success {
+    background: linear-gradient(45deg, var(--color-secondary), #b8941f);
+    border: none;
+    color: var(--color-dark) !important;
+    font-weight: 700;
+}
+
+.btn-success:hover {
+    background: linear-gradient(45deg, #b8941f, var(--color-secondary));
+    transform: scale(1.05);
+    box-shadow: 0 5px 15px rgba(212, 175, 55, 0.4);
+}
+
+/* Dropdown menu personalizado */
+.dropdown-menu {
+    background: linear-gradient(135deg, var(--color-gray) 0%, var(--color-primary) 100%);
+    border: 1px solid rgba(212, 175, 55, 0.3);
+    border-radius: 15px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
+    padding: 0.5rem;
+}
+
+.dropdown-item {
+    color: var(--color-light) !important;
+    padding: 0.75rem 1.5rem;
+    border-radius: 10px;
+    transition: all 0.3s ease;
+    font-weight: 500;
+}
+
+.dropdown-item:hover {
+    background: rgba(212, 175, 55, 0.2);
+    color: var(--color-secondary) !important;
+    transform: translateX(5px);
+}
+
+.dropdown-divider {
+    border-color: rgba(212, 175, 55, 0.3);
+    margin: 0.5rem 0;
+}
+
+/* Botón del dropdown cuando está logueado */
+.dropdown-toggle {
+    background: transparent !important;
+    border: 2px solid var(--color-light) !important;
+    color: var(--color-light) !important;
+    border-radius: 25px;
+    padding: 0.75rem 1.5rem;
+    font-weight: 600;
+}
+
+.dropdown-toggle:hover {
+    background: var(--color-light) !important;
+    color: var(--color-dark) !important;
+}
+
+/* Navbar toggler para móviles */
+.navbar-toggler {
+    border: 2px solid var(--color-light);
+    padding: 0.5rem;
+    border-radius: 10px;
+}
+
+.navbar-toggler:focus {
+    box-shadow: 0 0 0 3px rgba(212, 175, 55, 0.3);
+}
+
+.navbar-toggler-icon {
+    background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 30 30'%3e%3cpath stroke='rgba%28255, 255, 255, 1%29' stroke-linecap='round' stroke-miterlimit='10' stroke-width='2' d='M4 7h22M4 15h22M4 23h22'/%3e%3c/svg%3e");
+}
+
+/* Estilos responsive */
+@media (max-width: 991px) {
+    .navbar-collapse {
+        background: linear-gradient(135deg, var(--color-dark) 0%, var(--color-primary) 100%);
+        border-radius: 15px;
+        padding: 1rem;
+        margin-top: 1rem;
+        border: 1px solid rgba(212, 175, 55, 0.3);
+    }
+    
+    .navbar-nav .nav-link {
+        margin: 0.25rem 0;
+        text-align: center;
+    }
+    
+    .navbar .d-flex {
+        justify-content: center;
+        margin-top: 1rem;
+    }
+    
+    .navbar .btn {
+        margin: 0.25rem;
+    }
+}
+
+@media (max-width: 768px) {
+    .navbar-brand {
+        font-size: 1.5rem !important;
+    }
+    
+    .navbar-nav .nav-link {
+        padding: 0.5rem 1rem !important;
+        font-size: 0.9rem;
+    }
+}
+
+/* Animación suave */
+.navbar-brand,
+.navbar-nav .nav-link,
+.navbar .btn {
+    animation: fadeInDown 0.6s ease-out;
+}
+
+@keyframes fadeInDown {
+    from {
+        opacity: 0;
+        transform: translateY(-20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Efecto de brillo en hover */
+.navbar-nav .nav-link::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(45deg, transparent, rgba(212, 175, 55, 0.1), transparent);
+    border-radius: 25px;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.navbar-nav .nav-link:hover::before {
+    opacity: 1;
+}
+/* mis_citas.css - Estilos para el apartado Mis Citas */
+
+:root {
+    --color-primary: #1a1a1a;
+    --color-secondary: #d4af37;
+    --color-accent: #8b4513;
+    --color-light: #ffffff;
+    --color-dark: #121212;
+    --color-gray: #2d2d2d;
+    --color-gray-light: #3d3d3d;
+}
+
+body {
+    background: linear-gradient(135deg, var(--color-dark) 0%, var(--color-primary) 100%);
+    color: var(--color-light);
+    min-height: 100vh;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+/* Título principal */
+h2.text-center {
+    color: var(--color-secondary);
+    font-family: 'Georgia', serif;
+    font-weight: bold;
+    margin-bottom: 2rem;
+    text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+    padding-bottom: 1rem;
+    border-bottom: 2px solid rgba(212, 175, 55, 0.3);
+}
+
+/* Tarjetas de citas */
+.card {
+    background: linear-gradient(135deg, var(--color-gray) 0%, var(--color-primary) 100%);
+    border: 1px solid rgba(212, 175, 55, 0.3);
+    border-radius: 15px;
+    box-shadow: 0 8px 25px rgba(0,0,0,0.4);
+    transition: all 0.3s ease;
+    overflow: hidden;
+    height: 100%;
+}
+
+.card:hover {
+    transform: translateY(-5px);
+    border-color: var(--color-secondary);
+    box-shadow: 0 12px 35px rgba(212, 175, 55, 0.2);
+}
+
+/* Header de las tarjetas */
+.card-header {
+    background: rgba(0,0,0,0.3);
+    border-bottom: 1px solid rgba(212, 175, 55, 0.3);
+    padding: 1.25rem 1.5rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.card-header h5 {
+    color: var(--color-secondary);
+    font-weight: 600;
+    margin: 0;
+    font-family: 'Georgia', serif;
+}
+
+/* Badges de estado personalizados */
+.badge {
+    padding: 0.5rem 1rem;
+    border-radius: 20px;
+    font-weight: 600;
+    font-size: 0.8rem;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.bg-warning {
+    background: linear-gradient(45deg, #ffc107, #e0a800) !important;
+    color: #000000 !important;
+}
+
+.bg-primary {
+    background: linear-gradient(45deg, #007bff, #0056b3) !important;
+    color: #ffffff !important;
+}
+
+.bg-success {
+    background: linear-gradient(45deg, #28a745, #1e7e34) !important;
+    color: #ffffff !important;
+}
+
+.bg-danger {
+    background: linear-gradient(45deg, #dc3545, #c82333) !important;
+    color: #ffffff !important;
+}
+
+.bg-secondary {
+    background: linear-gradient(45deg, #6c757d, #545b62) !important;
+    color: #ffffff !important;
+}
+
+/* Cuerpo de las tarjetas */
+.card-body {
+    padding: 1.5rem;
+    color: var(--color-light);
+}
+
+.card-body p {
+    margin-bottom: 0.75rem;
+    font-size: 1rem;
+    line-height: 1.5;
+}
+
+.card-body strong {
+    color: var(--color-secondary);
+    font-weight: 600;
+}
+
+/* Botón de cancelar */
+.btn-outline-danger {
+    border: 2px solid #dc3545;
+    color: #dc3545;
+    border-radius: 25px;
+    padding: 0.5rem 1.5rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    transition: all 0.3s ease;
+    background: transparent;
+}
+
+.btn-outline-danger:hover {
+    background: #dc3545;
+    color: #ffffff;
+    transform: scale(1.05);
+    box-shadow: 0 5px 15px rgba(220, 53, 69, 0.4);
+}
+
+/* Alertas personalizadas */
+.alert {
+    border: none;
+    border-radius: 15px;
+    padding: 1.5rem;
+    margin-bottom: 2rem;
+    font-weight: 500;
+}
+
+.alert-info {
+    background: rgba(212, 175, 55, 0.1);
+    border-left: 4px solid var(--color-secondary);
+    color: var(--color-light);
+}
+
+.alert-info .btn-primary {
+    background: linear-gradient(45deg, var(--color-secondary), #b8941f);
+    border: none;
+    border-radius: 25px;
+    padding: 0.75rem 1.5rem;
+    font-weight: 600;
+    color: #000000;
+    margin-top: 1rem;
+    transition: all 0.3s ease;
+}
+
+.alert-info .btn-primary:hover {
+    background: linear-gradient(45deg, #b8941f, var(--color-secondary));
+    transform: scale(1.05);
+    box-shadow: 0 5px 15px rgba(212, 175, 55, 0.4);
+}
+
+/* Modal personalizado */
+.modal-content {
+    background: linear-gradient(135deg, var(--color-gray) 0%, var(--color-primary) 100%);
+    border: 1px solid rgba(212, 175, 55, 0.3);
+    border-radius: 15px;
+    color: var(--color-light);
+}
+
+.modal-header {
+    border-bottom: 1px solid rgba(212, 175, 55, 0.3);
+    background: rgba(0,0,0,0.3);
+    padding: 1.5rem;
+}
+
+.modal-title {
+    color: var(--color-secondary);
+    font-family: 'Georgia', serif;
+    font-weight: bold;
+}
+
+.modal-body {
+    padding: 1.5rem;
+}
+
+.modal-footer {
+    border-top: 1px solid rgba(212, 175, 55, 0.3);
+    background: rgba(0,0,0,0.3);
+    padding: 1.5rem;
+}
+
+.btn-close {
+    filter: invert(1);
+}
+
+/* Formularios en modal */
+.form-label {
+    color: var(--color-light);
+    font-weight: 600;
+    margin-bottom: 0.5rem;
+}
+
+.form-select {
+    background: rgba(255, 255, 255, 0.1);
+    border: 2px solid rgba(255, 255, 255, 0.2);
+    color: var(--color-light);
+    border-radius: 10px;
+    padding: 0.75rem 1rem;
+    transition: all 0.3s ease;
+}
+
+.form-select:focus {
+    background: rgba(255, 255, 255, 0.15);
+    border-color: var(--color-secondary);
+    box-shadow: 0 0 0 3px rgba(212, 175, 55, 0.2);
+    color: var(--color-light);
+}
+
+/* Botones del modal */
+.btn-secondary {
+    background: linear-gradient(45deg, #6c757d, #545b62);
+    border: none;
+    border-radius: 25px;
+    padding: 0.75rem 1.5rem;
+    font-weight: 600;
+    color: #ffffff;
+}
+
+.btn-danger {
+    background: linear-gradient(45deg, #dc3545, #c82333);
+    border: none;
+    border-radius: 25px;
+    padding: 0.75rem 1.5rem;
+    font-weight: 600;
+    color: #ffffff;
+}
+
+.btn-secondary:hover,
+.btn-danger:hover {
+    transform: scale(1.05);
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+}
+
+/* Footer */
+footer {
+    border-top: 3px solid var(--color-secondary);
+    margin-top: 3rem;
+    background: var(--color-dark) !important;
+}
+
+/* Estados de cita con iconos */
+.card-body p strong::before {
+    content: "•";
+    color: var(--color-secondary);
+    margin-right: 0.5rem;
+    font-weight: bold;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .card-header {
+        padding: 1rem;
+        flex-direction: column;
+        gap: 0.5rem;
+        text-align: center;
+    }
+    
+    .card-body {
+        padding: 1.25rem;
+    }
+    
+    .card-body p {
+        font-size: 0.95rem;
+    }
+    
+    .badge {
+        font-size: 0.75rem;
+        padding: 0.4rem 0.8rem;
+    }
+    
+    .btn-outline-danger {
+        padding: 0.4rem 1rem;
+        font-size: 0.9rem;
+    }
+}
+
+@media (max-width: 576px) {
+    h2.text-center {
+        font-size: 1.8rem;
+    }
+    
+    .card {
+        margin-bottom: 1.5rem;
+    }
+    
+    .modal-dialog {
+        margin: 1rem;
+    }
+}
+
+/* Animaciones */
+.card {
+    animation: fadeInUp 0.6s ease-out;
+}
+
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Efecto de brillo en hover */
+.card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(212, 175, 55, 0.1), transparent);
+    transition: left 0.5s ease;
+}
+
+.card:hover::before {
+    left: 100%;
+}
+
+/* Mensaje cuando no hay citas */
+.alert-info p {
+    font-size: 1.1rem;
+    margin-bottom: 1rem;
+    color: var(--color-light);
+}
+
+/* Separador visual entre citas */
+.col-md-6:not(:last-child) {
+    border-right: 1px solid rgba(212, 175, 55, 0.1);
+}
+/* === PARCHE VISIBILIDAD MODAL "Cancelar Cita" === */
+
+/* Que el modal siempre quede arriba de la navbar u otros overlays */
+.modal { z-index: 2000; }
+.modal-backdrop { z-index: 1990; }
+/* Oscurecer más el fondo para que el panel resalte */
+.modal-backdrop.show {
+  background-color: #000;
+  opacity: .75;
+}
+
+/* Panel del modal con mayor contraste y un borde dorado sutil */
+.modal-content {
+  background: #171717; /* sólido para legibilidad */
+  border: 1px solid rgba(212,175,55,.5);
+  box-shadow: 0 20px 60px rgba(0,0,0,.8);
+}
+.modal-header,
+.modal-footer {
+  background: rgba(0,0,0,.25);
+}
+
+/* Botón de cierre visible en oscuro */
+.modal .btn-close {
+  filter: invert(1);     /* flecha blanca */
+  opacity: .85;
+  outline: none;
+}
+.modal .btn-close:focus {
+  box-shadow: 0 0 0 .25rem rgba(212,175,55,.35);
+}
+
+/* === SELECT del motivo === */
+.modal .form-select {
+  background-color: #111;         /* caja más clara que el fondo */
+  color: #fff;                    /* texto legible */
+  border: 1px solid rgba(255,255,255,.25);
+  border-radius: 10px;
+  padding: .75rem 2.25rem .75rem 1rem;
+  /* Flecha visible en dorado */
+  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'><path fill='none' stroke='%23d4af37' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M2 5l6 6 6-6'/></svg>");
+  background-repeat: no-repeat;
+  background-position: right .75rem center;
+  background-size: 16px 12px;
+}
+
+/* Placeholder visible mientras el select está "sin elegir" (requiere value="" y required) */
+.modal .form-select:invalid {
+  color: rgba(255,255,255,.75);
+}
+
+/* Opciones del desplegable legibles en oscuro (Chromium/Firefox) */
+.modal .form-select option {
+  background-color: #1a1a1a;
+  color: #fff;
+}
+
+/* Enfoque accesible */
+.modal .form-select:focus {
+  border-color: #d4af37;
+  box-shadow: 0 0 0 .25rem rgba(212,175,55,.25);
+}
+/* === FIX: evitar que la card interfiera con el modal === */
+.card { position: relative; }              /* para acotar el ::before a la card */
+.card::before { pointer-events: none; }    /* que la “luz” no capture clics */
+
+/* Cuando hay un modal abierto, desactiva transform/overflow de las cards */
+.modal-open .card,
+.modal-open .card:hover {
+  transform: none !important;
+}
+.modal-open .card {
+  overflow: visible !important;
+}

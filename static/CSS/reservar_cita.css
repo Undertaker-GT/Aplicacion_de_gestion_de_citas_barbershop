@@ -1,0 +1,576 @@
+/* reservar_cita.css - Estilos FORZADOS para máxima visibilidad */
+
+:root {
+    --color-primary: #1a1a1a;
+    --color-secondary: #d4af37;
+    --color-accent: #8b4513;
+    --color-light: #ffffff;
+    --color-dark: #121212;
+}
+
+/* RESET FORZADO */
+body {
+    background: #121212 !important;
+    color: #ffffff !important;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+/* TEXTO DE SERVICIOS - FORZADO */
+.form-check-label {
+    color: #ffffff !important;
+    font-weight: 700 !important;
+    font-size: 1.2rem !important;
+    text-shadow: 2px 2px 4px rgba(0,0,0,0.8) !important;
+}
+
+/* SERVICIO SELECCIONADO - MUY VISIBLE */
+.form-check-input:checked + .form-check-label {
+    color: #ffd700 !important;
+    font-weight: 900 !important;
+    text-shadow: 0 0 10px rgba(255, 215, 0, 0.5) !important;
+}
+
+/* DESCRIPCIONES - BLANCO PURO */
+.text-muted {
+    color: #f0f0f0 !important;
+    font-weight: 500 !important;
+    font-size: 1rem !important;
+    opacity: 1 !important;
+}
+
+/* PLACEHOLDER DEL HORARIO - MUY VISIBLE */
+.form-select {
+    color: #ffffff !important;
+    background-color: #2d2d2d !important;
+    border: 2px solid #d4af37 !important;
+}
+
+.form-select option[value=""] {
+    color: #ffd700 !important;
+    background-color: #2d2d2d !important;
+    font-weight: 600 !important;
+    font-style: italic;
+}
+
+/* TARJETAS - FONDO OSCURO GARANTIZADO */
+.card {
+    background-color: #2d2d2d !important;
+    border: 2px solid #d4af37 !important;
+    color: #ffffff !important;
+}
+
+.card-header {
+    background-color: #1a1a1a !important;
+    color: #d4af37 !important;
+    border-bottom: 2px solid #d4af37 !important;
+}
+
+/* CHECKBOXES VISIBLES */
+.form-check-input {
+    border: 2px solid #ffffff !important;
+    background-color: transparent !important;
+}
+
+.form-check-input:checked {
+    background-color: #d4af37 !important;
+    border-color: #d4af37 !important;
+}
+
+/* BOTÓN PRINCIPAL */
+.btn-primary {
+    background: linear-gradient(45deg, #d4af37, #b8941f) !important;
+    color: #000000 !important;
+    font-weight: 800 !important;
+    font-size: 1.2rem !important;
+    border: none !important;
+}
+
+/* TOTAL SELECCIONADO */
+#totalSeleccionado {
+    background: #d4af37 !important;
+    color: #000000 !important;
+    font-weight: 900 !important;
+    font-size: 1.4rem !important;
+    padding: 10px 20px !important;
+    border-radius: 25px !important;
+}
+
+/* BARBEROS */
+.barbero-card {
+    background: #2d2d2d !important;
+    border: 2px solid transparent !important;
+    color: #ffffff !important;
+}
+
+.barbero-card:hover {
+    border-color: #d4af37 !important;
+}
+
+.barbero-radio:checked + .barbero-card {
+    border-color: #d4af37 !important;
+    background: rgba(212, 175, 55, 0.2) !important;
+}
+
+/* ALERTAS */
+.alert-info {
+    background: rgba(212, 175, 55, 0.3) !important;
+    color: #ffffff !important;
+    border-left: 4px solid #d4af37 !important;
+    font-weight: 600 !important;
+}
+
+/* FORZAR COLOR EN TODOS LOS TEXTOS */
+.container * {
+    color: inherit !important;
+}
+
+/* ESPECÍFICO PARA EL SELECTOR DE HORA */
+#horaSelect {
+    color: #ffffff !important;
+    background-color: #2d2d2d !important;
+}
+
+#horaSelect option {
+    color: #ffffff !important;
+    background-color: #2d2d2d !important;
+    padding: 10px !important;
+}
+
+/* MENSAJE DE INSTRUCCIÓN EN HORA */
+#horaSelect option[value=""] {
+    color: #ffd700 !important;
+    background-color: #3d3d3d !important;
+    font-weight: 700 !important;
+    font-size: 1rem !important;
+}
+/* Estilos para la barra de navegación - BLANK concept */
+
+.navbar {
+    background: linear-gradient(135deg, var(--color-dark) 0%, var(--color-primary) 100%) !important;
+    border-bottom: 3px solid var(--color-secondary);
+    padding: 1rem 0;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+    position: relative;
+    z-index: 1000;
+}
+
+.navbar-brand {
+    font-family: 'Georgia', serif;
+    font-weight: bold;
+    color: var(--color-secondary) !important;
+    font-size: 2rem !important;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+    transition: all 0.3s ease;
+    padding: 0.5rem 0;
+}
+
+.navbar-brand:hover {
+    color: #ffd700 !important;
+    transform: scale(1.05);
+}
+
+.navbar-nav .nav-link {
+    color: var(--color-light) !important;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    padding: 0.75rem 1.5rem !important;
+    margin: 0 0.25rem;
+    border-radius: 25px;
+    transition: all 0.3s ease;
+    position: relative;
+    font-size: 0.95rem;
+}
+
+.navbar-nav .nav-link:hover {
+    color: var(--color-secondary) !important;
+    background: rgba(212, 175, 55, 0.1);
+    transform: translateY(-2px);
+}
+
+.navbar-nav .nav-link.active {
+    color: var(--color-secondary) !important;
+    background: rgba(212, 175, 55, 0.15);
+    font-weight: 700;
+}
+
+.navbar-nav .nav-link.active::after {
+    content: '';
+    position: absolute;
+    bottom: -3px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 30px;
+    height: 2px;
+    background: var(--color-secondary);
+    border-radius: 2px;
+}
+
+/* Botones de la navbar */
+.navbar .btn {
+    border-radius: 25px;
+    padding: 0.75rem 1.5rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    transition: all 0.3s ease;
+    border: 2px solid;
+    margin-left: 0.5rem;
+}
+
+.btn-outline-light {
+    color: var(--color-light) !important;
+    border-color: var(--color-light);
+    background: transparent;
+}
+
+.btn-outline-light:hover {
+    background: var(--color-light);
+    color: var(--color-dark) !important;
+    transform: scale(1.05);
+}
+
+.btn-success {
+    background: linear-gradient(45deg, var(--color-secondary), #b8941f);
+    border: none;
+    color: var(--color-dark) !important;
+    font-weight: 700;
+}
+
+.btn-success:hover {
+    background: linear-gradient(45deg, #b8941f, var(--color-secondary));
+    transform: scale(1.05);
+    box-shadow: 0 5px 15px rgba(212, 175, 55, 0.4);
+}
+
+/* Dropdown menu personalizado */
+.dropdown-menu {
+    background: linear-gradient(135deg, var(--color-gray) 0%, var(--color-primary) 100%);
+    border: 1px solid rgba(212, 175, 55, 0.3);
+    border-radius: 15px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
+    padding: 0.5rem;
+}
+
+.dropdown-item {
+    color: var(--color-light) !important;
+    padding: 0.75rem 1.5rem;
+    border-radius: 10px;
+    transition: all 0.3s ease;
+    font-weight: 500;
+}
+
+.dropdown-item:hover {
+    background: rgba(212, 175, 55, 0.2);
+    color: var(--color-secondary) !important;
+    transform: translateX(5px);
+}
+
+.dropdown-divider {
+    border-color: rgba(212, 175, 55, 0.3);
+    margin: 0.5rem 0;
+}
+
+/* Botón del dropdown cuando está logueado */
+.dropdown-toggle {
+    background: transparent !important;
+    border: 2px solid var(--color-light) !important;
+    color: var(--color-light) !important;
+    border-radius: 25px;
+    padding: 0.75rem 1.5rem;
+    font-weight: 600;
+}
+
+.dropdown-toggle:hover {
+    background: var(--color-light) !important;
+    color: var(--color-dark) !important;
+}
+
+/* Navbar toggler para móviles */
+.navbar-toggler {
+    border: 2px solid var(--color-light);
+    padding: 0.5rem;
+    border-radius: 10px;
+}
+
+.navbar-toggler:focus {
+    box-shadow: 0 0 0 3px rgba(212, 175, 55, 0.3);
+}
+
+.navbar-toggler-icon {
+    background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 30 30'%3e%3cpath stroke='rgba%28255, 255, 255, 1%29' stroke-linecap='round' stroke-miterlimit='10' stroke-width='2' d='M4 7h22M4 15h22M4 23h22'/%3e%3c/svg%3e");
+}
+
+/* Estilos responsive */
+@media (max-width: 991px) {
+    .navbar-collapse {
+        background: linear-gradient(135deg, var(--color-dark) 0%, var(--color-primary) 100%);
+        border-radius: 15px;
+        padding: 1rem;
+        margin-top: 1rem;
+        border: 1px solid rgba(212, 175, 55, 0.3);
+    }
+    
+    .navbar-nav .nav-link {
+        margin: 0.25rem 0;
+        text-align: center;
+    }
+    
+    .navbar .d-flex {
+        justify-content: center;
+        margin-top: 1rem;
+    }
+    
+    .navbar .btn {
+        margin: 0.25rem;
+    }
+}
+
+@media (max-width: 768px) {
+    .navbar-brand {
+        font-size: 1.5rem !important;
+    }
+    
+    .navbar-nav .nav-link {
+        padding: 0.5rem 1rem !important;
+        font-size: 0.9rem;
+    }
+}
+
+/* Animación suave */
+.navbar-brand,
+.navbar-nav .nav-link,
+.navbar .btn {
+    animation: fadeInDown 0.6s ease-out;
+}
+
+@keyframes fadeInDown {
+    from {
+        opacity: 0;
+        transform: translateY(-20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Efecto de brillo en hover */
+.navbar-nav .nav-link::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(45deg, transparent, rgba(212, 175, 55, 0.1), transparent);
+    border-radius: 25px;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.navbar-nav .nav-link:hover::before {
+    opacity: 1;
+}
+/* CORRECCIÓN PARA INPUT DE FECHA - TEXTO VISIBLE */
+#fechaSelect {
+    color: #ffffff !important;
+    background-color: #2d2d2d !important;
+    border: 2px solid #d4af37 !important;
+    border-radius: 10px !important;
+    padding: 0.75rem 1rem !important;
+    font-weight: 500 !important;
+}
+
+#fechaSelect:focus {
+    background-color: #3d3d3d !important;
+    border-color: #ffd700 !important;
+    box-shadow: 0 0 0 3px rgba(255, 215, 0, 0.3) !important;
+}
+
+/* Forzar el color del texto en el input de fecha */
+#fechaSelect::-webkit-datetime-edit {
+    color: #ffffff !important;
+    font-weight: 500 !important;
+}
+
+#fechaSelect::-webkit-datetime-edit-fields-wrapper {
+    color: #ffffff !important;
+}
+
+#fechaSelect::-webkit-datetime-edit-text {
+    color: #ffffff !important;
+}
+
+#fechaSelect::-webkit-datetime-edit-month-field {
+    color: #ffffff !important;
+}
+
+#fechaSelect::-webkit-datetime-edit-day-field {
+    color: #ffffff !important;
+}
+
+#fechaSelect::-webkit-datetime-edit-year-field {
+    color: #ffffff !important;
+}
+
+#fechaSelect::-webkit-inner-spin-button {
+    filter: invert(1);
+}
+
+#fechaSelect::-webkit-calendar-picker-indicator {
+    filter: invert(1);
+    background-color: #d4af37;
+    border-radius: 4px;
+    padding: 4px;
+    cursor: pointer;
+}
+
+#fechaSelect::-webkit-calendar-picker-indicator:hover {
+    background-color: #ffd700;
+}
+
+/* Para Firefox */
+#fechaSelect {
+    color-scheme: dark;
+}
+
+/* También corrige el selector de hora */
+#horaSelect {
+    color: #ffffff !important;
+    background-color: #2d2d2d !important;
+    border: 2px solid #d4af37 !important;
+    border-radius: 10px !important;
+    padding: 0.75rem 1rem !important;
+    font-weight: 500 !important;
+}
+
+#horaSelect:focus {
+    background-color: #3d3d3d !important;
+    border-color: #ffd700 !important;
+    box-shadow: 0 0 0 3px rgba(255, 215, 0, 0.3) !important;
+}
+
+#horaSelect option {
+    color: #ffffff !important;
+    background-color: #2d2d2d !important;
+    padding: 10px !important;
+    font-weight: 500 !important;
+}
+
+/* Mensaje de instrucción en hora - MÁS VISIBLE */
+#horaSelect option[value=""] {
+    color: #ffd700 !important;
+    background-color: #3d3d3d !important;
+    font-weight: 700 !important;
+    font-size: 1rem !important;
+    text-align: center !important;
+}
+
+/* Labels de formulario más visibles */
+.form-label {
+    color: #ffffff !important;
+    font-weight: 600 !important;
+    font-size: 1.1rem !important;
+    margin-bottom: 0.75rem !important;
+    text-shadow: 1px 1px 2px rgba(0,0,0,0.8) !important;
+}
+
+/* También asegura que todos los inputs tengan buen contraste */
+.form-control {
+    color: #ffffff !important;
+    background-color: #2d2d2d !important;
+    border: 2px solid #d4af37 !important;
+    border-radius: 10px !important;
+    padding: 0.75rem 1rem !important;
+    font-weight: 500 !important;
+}
+
+.form-control:focus {
+    background-color: #3d3d3d !important;
+    border-color: #ffd700 !important;
+    box-shadow: 0 0 0 3px rgba(255, 215, 0, 0.3) !important;
+    color: #ffffff !important;
+}
+
+.form-control::placeholder {
+    color: rgba(255, 255, 255, 0.7) !important;
+}
+
+/* ====== NUEVO: Selector de hora con "chips" (slots) ====== */
+.legend { display:inline-block; width:14px; height:14px; border-radius:4px; margin-right:6px; vertical-align:middle; }
+.legend-available { background: #2ecc71; }
+.legend-taken { background: #e74c3c; }
+.legend-past { background: #7f8c8d; }
+
+.slots-container {
+    background: #1f1f1f;
+    border: 2px solid #d4af37 !important;
+    min-height: 120px;
+}
+
+.slots-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(90px, 1fr));
+    gap: 10px;
+    margin-top: 5px;
+}
+
+.slot-btn {
+    border: 2px solid rgba(212, 175, 55, 0.5);
+    border-radius: 12px;
+    padding: 10px 8px;
+    font-weight: 700;
+    text-align: center;
+    background: #2d2d2d;
+    color: #fff;
+    user-select: none;
+    cursor: pointer;
+    transition: transform .06s ease, box-shadow .15s ease, border-color .2s ease, background .2s ease;
+}
+
+.slot-btn[disabled] {
+    cursor: not-allowed;
+    opacity: 0.6;
+}
+
+.slot-btn:hover:not([disabled]) {
+    transform: translateY(-1px);
+    box-shadow: 0 4px 14px rgba(212, 175, 55, 0.25);
+    border-color: #d4af37;
+}
+
+.slot-btn.selected {
+    background: linear-gradient(45deg, #d4af37, #b8941f);
+    color: #000;
+    border-color: transparent;
+    box-shadow: 0 6px 18px rgba(212, 175, 55, 0.35);
+}
+
+/* estados visuales opcionales si más adelante mostramos "ocupado" o "pasado" */
+.slot--taken { background: #3a1f1f; border-color: #e74c3c; }
+.slot--past  { background: #2a2a2a; border-color: #7f8c8d; }
+
+/* Loading state */
+.slots-skeleton {
+    display:grid;
+    grid-template-columns: repeat(auto-fill, minmax(90px,1fr));
+    gap:10px;
+}
+.slots-skeleton .skeleton-pill {
+    height: 40px;
+    border-radius: 12px;
+    background: linear-gradient(90deg, #333 25%, #444 37%, #333 63%);
+    background-size: 400% 100%;
+    animation: skeleton-loading 1.4s ease-in-out infinite;
+}
+@keyframes skeleton-loading {
+  0% { background-position: 200% 0; }
+  100% { background-position: -200% 0; }
+}
+
+/* Accesibilidad al navegar con teclado */
+.slot-btn:focus {
+    outline: none;
+    box-shadow: 0 0 0 3px rgba(212, 175, 55, 0.4);
+}

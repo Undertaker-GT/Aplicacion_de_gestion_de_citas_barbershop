@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BLANK concept - Barbershop</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="/static/CSS/main.css">
+</head>
+<body>
+    <!-- Barra de navegación -->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <div class="container">
+            <a class="navbar-brand" href="#">BLANK concept</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav me-auto">
+                <li class="nav-item">
+                    <a class="nav-link active" href="{{ url_for('home') }}">Inicio</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ url_for('servicios') }}">Servicios</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ url_for('ver_barberos') }}">Barberos</a>
+                </li>
+            </ul>
+
+                <div class="d-flex">
+                    {% if 'user_id' in session %}
+                        <div class="dropdown">
+                            <button class="btn btn-outline-light dropdown-toggle" type="button" id="dropdownMenuButton" data-bs-toggle="dropdown">
+                                Hola, {{ session.get('user_name', 'Usuario') }}
+                            </button>
+                            <ul class="dropdown-menu">
+                                {% if session.get('user_role') == 1 %}
+                                    <li><a class="dropdown-item" href="{{ url_for('admin_dashboard') }}">Panel Admin</a></li>
+                                {% elif session.get('user_role') == 2 %}
+                                    <li><a class="dropdown-item" href="{{ url_for('barber_dashboard') }}">Panel Barbero</a></li>
+                                {% endif %}
+                                <li><a class="dropdown-item" href="{{ url_for('mis_citas') }}">Mis citas</a></li>
+                                <li><hr class="dropdown-divider"></li>
+                                <li><a class="dropdown-item" href="{{ url_for('logout') }}">Cerrar sesión</a></li>
+                            </ul>
+                        </div>
+                    {% else %}
+                        <a href="{{ url_for('login') }}" class="btn btn-outline-light me-2">Iniciar sesión</a>
+                        <a href="{{ url_for('registro') }}" class="btn btn-success">Registrarse</a>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Sección Hero -->
+    <section class="hero-section">
+        <div class="container">
+            <h1 class="display-4">BLANK concept</h1>
+            <p class="lead">Experiencia y estilo en cada corte</p>
+            {% if 'user_id' not in session %}
+                <div class="auth-buttons">
+                    <a href="{{ url_for('registro') }}" class="btn btn-primary btn-lg me-2">Reserva tu cita</a>
+                    <a href="{{ url_for('login') }}" class="btn btn-outline-light btn-lg">Iniciar sesión</a>
+                </div>
+            {% endif %}
+        </div>
+    </section>
+
+    <div class="container">
+        <!-- Mensaje de bienvenida para usuarios autenticados -->
+        {% if 'user_id' in session %}
+        <div class="user-welcome">
+            <h2>Bienvenido, {{ session.get('user_name', 'Usuario') }}</h2>
+            <p>¿Qué te gustaría hacer hoy?</p>
+            <div class="d-flex gap-2">
+                <a href="{{ url_for('reservar_cita') }}" class="btn btn-primary">Reservar cita</a>
+                <a href="{{ url_for('mis_citas') }}" class="btn btn-outline-secondary">Ver mis citas</a>
+            </div>
+        </div>
+        {% endif %}
+
+        <!-- Otras secciones (Nosotros, Contacto, etc.) -->
+        <section id="about" class="mb-5">
+            <h2 class="text-center mb-4">Sobre Nosotros</h2>
+            <p>BLANK concept es más que una barbería, es un espacio donde la tradición se encuentra con la modernidad. Nuestros barberos expertos están dedicados a brindarte el mejor servicio y asesoramiento para tu estilo personal.</p>
+        </section>
+
+        <section id="contact" class="mb-5">
+            <h2 class="text-center mb-4">Contacto</h2>
+            <div class="row">
+                <div class="col-md-6">
+                    <h5>Horario</h5>
+                    <p>Lunes a Viernes: 12:00 - 20:00</p>
+                    <p>Sábados: 10:00 - 20:00</p>
+                    <p>Domingos: 12:00 - 18:00</p>
+                </div>
+                <div class="col-md-6">
+                    <h5>Ubicación</h5>
+                    <p>Residenciales Las Victorias, carretera al pacífico, Palín 05011</p>
+                    <p>Teléfono: +502 3085 0114</p>
+                    <p>Email: blank.concept502@gmail.com</p>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <footer class="bg-dark text-white text-center py-4">
+        <div class="container">
+            <p>&copy; 2025 BLANK concept. Todos los derechos reservados.</p>
+        </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
